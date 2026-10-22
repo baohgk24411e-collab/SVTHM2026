@@ -1172,6 +1172,22 @@ body.lang-en .lang-vi { display: none !important; }
     url('../images/background/image4.jpg') center/cover no-repeat fixed !important;
 }
 
+.journey-section-bg .section-tag {
+  color: var(--color-forest-gold) !important;
+  background-color: rgba(229, 138, 31, 0.15) !important;
+  border-color: rgba(229, 138, 31, 0.35) !important;
+}
+
+.journey-section-bg .section-title {
+  color: #FFFFFF !important;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.7);
+}
+
+.journey-section-bg .section-desc {
+  color: #E2D9D0 !important;
+  opacity: 0.95;
+}
+
 .journey-winding-wrapper {
   position: relative;
   max-width: 1100px;
@@ -1329,7 +1345,7 @@ body.lang-en .lang-vi { display: none !important; }
 
 .journey-trail-text {
   font-size: 0.88rem;
-  color: var(--color-text-muted);
+  color: #D6CBC1;
   line-height: 1.7;
   margin-bottom: 15px;
 }
@@ -1340,15 +1356,15 @@ body.lang-en .lang-vi { display: none !important; }
   gap: 6px;
   font-size: 0.82rem;
   font-weight: 800;
-  color: var(--color-bazan-red);
+  color: var(--color-amber-glow);
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  transition: gap 0.3s ease;
+  transition: gap 0.3s ease, color 0.3s ease;
 }
 
 .journey-trail-link:hover {
   gap: 10px;
-  color: var(--color-forest-gold);
+  color: #FCD34D;
 }
 
 /* Nút mốc Waypoint tròn ở giữa đường mòn */
