@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tra Cứu Mã Định Danh QR Thổ Cẩm — Dệt Nên Tương Lai | SVTHM 2026</title>
+  <meta name="description" content="Hệ thống tra cứu số hóa minh bạch nguồn gốc sản phẩm thổ cẩm Jrai: biết ai dệt, dệt ở đâu, mất bao nhiêu giờ công và ý nghĩa hoa văn thiêng liêng đằng sau nếp dệt.">
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+<body class="lang-vi">
+
+  <!-- TOP NOTICE BAR -->
+  <div class="top-notice-bar">
+    <span class="lang-vi">✨ Đây là dự án được thực hiện bởi nhóm sinh viên Trường Đại học Kinh tế - Luật, ĐHQG-HCM • SVTHM 2026</span>
+    <span class="lang-en">✨ Project developed by students of University of Economics and Law, VNU-HCM • SVTHM 2026</span>
+  </div>
+
+  <!-- MAIN HEADER -->
+  <header class="main-header brocade-border-top">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-badge">J</div>
+        <div class="logo-text-wrap">
+          <span class="logo-title">DỆT NÊN TƯƠNG LAI</span>
+          <span class="logo-subtitle">DI SẢN THỔ CẨM JRAI • UEL - ĐHQG-HCM</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link"><span class="lang-vi">Trang chủ</span><span class="lang-en">Home</span></a></li>
+          <li><a href="about.html" class="nav-link"><span class="lang-vi">Về chúng tôi</span><span class="lang-en">About Us</span></a></li>
+          <li><a href="products.html" class="nav-link"><span class="lang-vi">Sản phẩm dệt</span><span class="lang-en">Brocade Products</span></a></li>
+          <li><a href="artisans.html" class="nav-link"><span class="lang-vi">Nghệ nhân</span><span class="lang-en">Master Artisans</span></a></li>
+          <li><a href="motifs.html" class="nav-link"><span class="lang-vi">Ngân hàng hoa văn</span><span class="lang-en">Cultural Bank</span><span class="nav-badge-pill">Central</span></a></li>
+          <li><a href="traceability.html" class="nav-link active"><span class="lang-vi">Tra cứu QR</span><span class="lang-en">QR Traceability</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="lang-switch-btn" id="lang-toggle-btn" title="Language Switcher">
+          <span class="lang-vi">EN</span>
+          <span class="lang-en">VI</span>
+        </button>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- TRACEABILITY HERO -->
+  <section class="section section-watermark-field" style="padding: 75px 0 90px; border-bottom: 2px solid var(--color-forest-gold);">
+    <div class="container text-center">
+      <span class="section-tag gold">
+        <span class="lang-vi">Minh bạch nguồn gốc số hóa</span>
+        <span class="lang-en">Digitized Heritage Traceability</span>
+      </span>
+      <h1 class="section-title" style="margin-bottom: 15px;">
+        <span class="lang-vi">Tra Cứu Mã Định Danh Độc Bản Tác Phẩm Dệt</span>
+        <span class="lang-en">Trace Your Unique Handwoven Brocade Identity</span>
+      </h1>
+      <p class="section-desc" style="max-width: 760px; margin: 0 auto;">
+        <span class="lang-vi">Mỗi sản phẩm thổ cẩm dệt tay đều được gắn một mã QR độc bản. Quét mã hoặc nhập mã bên dưới để mở ra câu chuyện: Ai là người dệt, ở buôn làng nào, mất bao nhiêu giờ công và nếp dệt mang ý nghĩa gì.</span>
+        <span class="lang-en">Every handwoven piece carries a unique QR tag. Scan or enter the code below to reveal who wove it, in which village, the hours spent, and sacred motif wisdom.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- SEARCH BOX & RESULTS -->
+  <section class="section section-watermark-mist" style="padding-top: 0;">
+    <div class="container">
+      <!-- Search Input Card -->
+      <div class="trace-search-box">
+        <h3 style="font-size: 1.25rem; font-weight: 800; color: #FFFFFF; margin-bottom: 4px;">
+          <span class="lang-vi">Nhập mã tem sản phẩm hoặc chọn mã mẫu</span>
+          <span class="lang-en">Enter Product Tag Code or Select a Sample</span>
+        </h3>
+        <p style="font-size: 0.85rem; color: var(--color-text-muted); margin-bottom: 15px;">
+          <span class="lang-vi">Mã in trên mác vải thổ cẩm của bạn (Định dạng: JRAI-IMN-XXX)</span>
+          <span class="lang-en">Code printed on your brocade fabric label (Format: JRAI-IMN-XXX)</span>
+        </p>
+
+        <div class="trace-input-wrap">
+          <input type="text" id="trace-code-input" class="trace-input" placeholder="Ví dụ: JRAI-IMN-001 hoặc JRAI-IMN-002...">
+          <button class="btn btn-primary" id="trace-search-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <span class="lang-vi">Tra cứu ngay</span>
+            <span class="lang-en">Trace Origin</span>
+          </button>
+        </div>
+
+        <!-- Các mã gợi ý để Ban Giám Khảo bấm thử ngay -->
+        <div class="sample-codes-pills">
+          <span style="font-size: 0.76rem; font-weight: 800; color: var(--color-amber-glow); text-transform: uppercase;">
+            <span class="lang-vi">Mã mẫu thử nghiệm:</span>
+            <span class="lang-en">Try Sample Codes:</span>
+          </span>
+          <button class="sample-pill" data-code="V001">V001 (Ví Cầm Tay)</button>
+          <button class="sample-pill" data-code="K001">K001 (Khăn Quàng Cổ)</button>
+          <button class="sample-pill" data-code="VY001">VY001 (Váy Nữ Jrai)</button>
+          <button class="sample-pill" data-code="T001">T001 (Túi Đeo Chéo)</button>
+          <button class="sample-pill" data-code="A001">A001 (Áo Thổ Cẩm Nam)</button>
+          <button class="sample-pill" data-code="VA001">VA001 (Váy Lễ Hội)</button>
+        </div>
+      </div>
+
+      <!-- Container kết quả tra cứu (Load động qua js/main.js) -->
+      <div id="trace-result-container">
+        <!-- Khi mới vào trang: hướng dẫn trực quan -->
+        <div style="background: #FFFFFF; border-radius: var(--radius-xl); padding: 45px 30px; text-align: center; border: 1px solid var(--color-cotton-border); box-shadow: 0 10px 30px rgba(60, 45, 30, 0.06);">
+          <div style="width: 70px; height: 70px; border-radius: 50%; background: #FEF3C7; border: 2px solid #FCD34D; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; color: #B45309; font-size: 2rem;">
+            📱
+          </div>
+          <h3 style="font-size: 1.35rem; font-weight: 800; color: #1F1D1B; margin-bottom: 8px;">
+            <span class="lang-vi">Chưa có mã tra cứu được chọn</span>
+            <span class="lang-en">No Trace Code Selected</span>
+          </h3>
+          <p style="color: #5D554D; max-width: 500px; margin: 0 auto 20px; font-size: 0.95rem;">
+            <span class="lang-vi">Vui lòng nhập mã định danh in trên thẻ mác QR của bạn, hoặc bấm vào các nút <strong>Mã mẫu thử nghiệm</strong> ở trên để xem bản tường trình minh bạch nguồn gốc sản phẩm.</span>
+            <span class="lang-en">Please enter the tag ID from your product label or click one of the <strong>Sample Codes</strong> above to explore the verifiable story.</span>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN FOOTER -->
+  <footer class="main-footer">
+    <div class="container footer-top">
+      <div>
+        <div class="footer-logo-wrap">
+          <div class="logo-badge">J</div>
+          <div>
+            <h3 style="font-family: var(--font-serif); font-size: 1.2rem; color: #fff;">DỆT NÊN TƯƠNG LAI</h3>
+            <span style="font-size: 0.7rem; color: var(--color-forest-gold); font-weight: 800; letter-spacing: 1px;">DI SẢN THỔ CẨM JRAI</span>
+          </div>
+        </div>
+        <p class="footer-tagline">“Giữ một nghề, dệt nên tương lai.”</p>
+        <p class="footer-desc">
+          Dự án nghiên cứu & khởi nghiệp đổi mới sáng tạo SVTHM 2026. Số hóa di sản thổ cẩm Jrai và kết nối chuỗi giá trị sinh kế cộng đồng tại Gia Lai.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Khám Phá Di Sản</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Trang chủ dự án</a></li>
+          <li><a href="about.html">Về chúng tôi & Đội ngũ</a></li>
+          <li><a href="about.html#journey">Hành trình 6 bước dệt</a></li>
+          <li><a href="products.html">Bộ sưu tập sản phẩm</a></li>
+          <li><a href="motifs.html">Ngân hàng số hoa văn</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Tra Cứu & Xác Minh</h4>
+        <ul class="footer-links">
+          <li><a href="traceability.html">Quét mã QR sản phẩm</a></li>
+          <li><a href="traceability.html?code=JRAI-IMN-001">Mẫu tem: Khăn choàng dạ</a></li>
+          <li><a href="traceability.html?code=JRAI-IMN-002">Mẫu tem: Túi Tote Canvas</a></li>
+          <li><a href="traceability.html?code=JRAI-IMN-003">Mẫu tem: Áo Gile Heritage</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Địa Bàn Triển Khai</h4>
+        <p style="font-size: 0.88rem; color: #9C948D; line-height: 1.7; margin-bottom: 12px;">
+          📍 <strong>Hợp tác xã & CLB Dệt Thổ Cẩm:</strong><br>
+          Làng Kép, Xã Ia Mơ Nông, Huyện Chư Păh, Tỉnh Gia Lai.
+        </p>
+        <p style="font-size: 0.88rem; color: #9C948D; line-height: 1.7;">
+          📧 Email: <a href="mailto:contact@detnentuonglai.vn" style="color: var(--color-amber-glow);">contact@detnentuonglai.vn</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>© 2026 Dự án SVTHM 2026: “Giữ một nghề, dệt nên tương lai”. Bảo lưu mọi quyền.</div>
+      <div>Designed with ❤️ for Jrai Indigenous Cultural Heritage</div>
+    </div>
+  </footer>
+
+  <!-- SCRIPTS -->
+  <script src="js/products-data.js"></script>
+  <script src="js/artisans-data.js"></script>
+  <script src="js/motifs-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

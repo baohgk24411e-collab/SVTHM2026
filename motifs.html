@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ngân Hàng Số Hoa Văn Jrai — Di Sản Văn Hóa Bản Địa | SVTHM 2026</title>
+  <meta name="description" content="Nền tảng số hóa, lưu trữ và giải mã tri thức hoa văn thổ cẩm của người Jrai tại Ia Mơ Nông, Chư Păh, Gia Lai. Xác minh văn hóa trực tiếp từ nghệ nhân và già làng.">
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    .motif-filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 40px;
+    }
+    .motif-filter-btn {
+      padding: 10px 22px;
+      border-radius: var(--radius-full);
+      background: #231C18;
+      border: 1.5px solid rgba(229, 138, 31, 0.3);
+      color: #EDE4DB;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .motif-filter-btn:hover, .motif-filter-btn.active {
+      background: var(--color-forest-gold);
+      color: #141211;
+      border-color: var(--color-forest-gold);
+      box-shadow: 0 4px 15px rgba(217, 119, 6, 0.4);
+    }
+  </style>
+</head>
+<body class="lang-vi">
+
+  <!-- TOP NOTICE BAR -->
+  <div class="top-notice-bar">
+    <span class="lang-vi">✨ Đây là dự án được thực hiện bởi nhóm sinh viên Trường Đại học Kinh tế - Luật, ĐHQG-HCM • SVTHM 2026</span>
+    <span class="lang-en">✨ Project developed by students of University of Economics and Law, VNU-HCM • SVTHM 2026</span>
+  </div>
+
+  <!-- MAIN HEADER -->
+  <header class="main-header brocade-border-top">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-badge">J</div>
+        <div class="logo-text-wrap">
+          <span class="logo-title">DỆT NÊN TƯƠNG LAI</span>
+          <span class="logo-subtitle">DI SẢN THỔ CẨM JRAI • UEL - ĐHQG-HCM</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link"><span class="lang-vi">Trang chủ</span><span class="lang-en">Home</span></a></li>
+          <li><a href="about.html" class="nav-link"><span class="lang-vi">Về chúng tôi</span><span class="lang-en">About Us</span></a></li>
+          <li><a href="products.html" class="nav-link"><span class="lang-vi">Sản phẩm dệt</span><span class="lang-en">Brocade Products</span></a></li>
+          <li><a href="artisans.html" class="nav-link"><span class="lang-vi">Nghệ nhân</span><span class="lang-en">Master Artisans</span></a></li>
+          <li><a href="motifs.html" class="nav-link active"><span class="lang-vi">Ngân hàng hoa văn</span><span class="lang-en">Cultural Bank</span><span class="nav-badge-pill">Central</span></a></li>
+          <li><a href="traceability.html" class="nav-link"><span class="lang-vi">Tra cứu QR</span><span class="lang-en">QR Traceability</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="lang-switch-btn" id="lang-toggle-btn" title="Language Switcher">
+          <span class="lang-vi">EN</span>
+          <span class="lang-en">VI</span>
+        </button>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MOTIFS HERO -->
+  <section class="section section-watermark-mist" style="padding: 75px 0 65px; border-bottom: 2px solid var(--color-forest-gold);">
+    <div class="container text-center">
+      <span class="section-tag gold">
+        <span class="lang-vi">Tính mới công nghệ số SVTHM 2026</span>
+        <span class="lang-en">Digital Heritage Innovation</span>
+      </span>
+      <h1 class="section-title" style="margin-bottom: 15px;">
+        <span class="lang-vi">Ngân Hàng Số Hoa Văn Dân Tộc Gia Rai (Jrai)</span>
+        <span class="lang-en">Jrai Indigenous Digital Motif Heritage Bank</span>
+      </h1>
+      <p class="section-desc" style="max-width: 800px; margin: 0 auto;">
+        <span class="lang-vi">Mỗi nếp dệt là một câu chuyện truyền thế. Chúng tôi số hóa kho tàng tri thức hoa văn thổ cẩm Jrai tại Ia Mơ Nông, giải mã triết lý nhân sinh và kết nối trực tiếp với sản phẩm ứng dụng. Dữ liệu được xác minh minh bạch cùng các nghệ nhân cao niên tại địa phương.</span>
+        <span class="lang-en">Every woven row preserves ancient oral lore. We digitize Jrai motif wisdom in Ia Mo Nong, decoding indigenous philosophy and linking motifs directly to wearable creations.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- MOTIFS CONTENT -->
+  <section class="section section-watermark-weave">
+    <div class="container">
+      <!-- Bộ lọc Theme -->
+      <div class="motif-filter-bar">
+        <button class="motif-filter-btn active" data-theme="all">
+          <span class="lang-vi">Tất cả hoa văn di sản</span>
+          <span class="lang-en">All Heritage Motifs</span>
+        </button>
+        <button class="motif-filter-btn" data-theme="nature">
+          <span class="lang-vi">Thiên nhiên & Muông thú</span>
+          <span class="lang-en">Nature & Wildlife</span>
+        </button>
+        <button class="motif-filter-btn" data-theme="ritual">
+          <span class="lang-vi">Tín ngưỡng & Lễ hội Pơthi</span>
+          <span class="lang-en">Sacred Ritual & Gongs</span>
+        </button>
+        <button class="motif-filter-btn" data-theme="life">
+          <span class="lang-vi">Đời sống & Con người Jrai</span>
+          <span class="lang-en">Highland Life & People</span>
+        </button>
+      </div>
+
+      <!-- Grid danh sách hoa văn -->
+      <div class="products-grid" id="all-motifs-grid">
+        <!-- Render tự động bởi js/main.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: NGUYÊN TẮC XÁC THỰC VĂN HÓA -->
+  <section class="section section-watermark-hearth">
+    <div class="container">
+      <div style="background: #FFFFFF; border-radius: var(--radius-xl); padding: 45px; border: 1px solid var(--color-cotton-border); box-shadow: 0 10px 30px rgba(60, 45, 30, 0.06);">
+        <div style="display: flex; gap: 20px; align-items: flex-start;">
+          <div style="width: 56px; height: 56px; border-radius: 50%; background: rgba(168, 40, 43, 0.1); border: 2px solid var(--color-bazan-red); display: flex; align-items: center; justify-content: center; color: var(--color-bazan-red); font-size: 1.6rem; flex-shrink: 0;">
+            🛡️
+          </div>
+          <div>
+            <h3 style="font-size: 1.35rem; color: #1F1D1B; margin-bottom: 10px;">
+              <span class="lang-vi">Cam Kết Tôn Trọng Bản Quyền Tri Thức Dân Gian Bản Địa</span>
+              <span class="lang-en">Commitment to Indigenous Knowledge Rights & Ethics</span>
+            </h3>
+            <p style="color: #5D554D; line-height: 1.7; margin-bottom: 12px;">
+              <span class="lang-vi">Dự án “Giữ một nghề, dệt nên tương lai” kiên quyết không thương mại hóa sai lệch biểu tượng thiêng liêng của đồng bào Jrai. Toàn bộ hình ảnh hoa văn và ý nghĩa lưu trữ trong Ngân Hàng Số đều có sự đồng thuận và xác thực trực tiếp từ Câu lạc bộ Dệt Thổ Cẩm xã Ia Mơ Nông và các nghệ nhân cao niên làng Kép, huyện Chư Păh, tỉnh Gia Lai.</span>
+              <span class="lang-en">Our SVTHM2026 team strictly avoids cultural misrepresentation. All motif imagery, names, and oral folklore are recorded with informed consent and verified by elder craftswomen of Ia Mo Nong, Gia Lai.</span>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN FOOTER -->
+  <footer class="main-footer">
+    <div class="container footer-top">
+      <div>
+        <div class="footer-logo-wrap">
+          <div class="logo-badge">J</div>
+          <div>
+            <h3 style="font-family: var(--font-serif); font-size: 1.2rem; color: #fff;">DỆT NÊN TƯƠNG LAI</h3>
+            <span style="font-size: 0.7rem; color: var(--color-forest-gold); font-weight: 800; letter-spacing: 1px;">DI SẢN THỔ CẨM JRAI</span>
+          </div>
+        </div>
+        <p class="footer-tagline">“Giữ một nghề, dệt nên tương lai.”</p>
+        <p class="footer-desc">
+          Dự án nghiên cứu & khởi nghiệp đổi mới sáng tạo SVTHM 2026. Số hóa di sản thổ cẩm Jrai và kết nối chuỗi giá trị sinh kế cộng đồng tại Gia Lai.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Khám Phá Di Sản</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Trang chủ dự án</a></li>
+          <li><a href="about.html">Về chúng tôi & Đội ngũ</a></li>
+          <li><a href="about.html#journey">Hành trình 6 bước dệt</a></li>
+          <li><a href="products.html">Bộ sưu tập sản phẩm</a></li>
+          <li><a href="motifs.html">Ngân hàng số hoa văn</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Tra Cứu & Xác Minh</h4>
+        <ul class="footer-links">
+          <li><a href="traceability.html">Quét mã QR sản phẩm</a></li>
+          <li><a href="traceability.html?code=JRAI-IMN-001">Mẫu tem: Khăn choàng dạ</a></li>
+          <li><a href="traceability.html?code=JRAI-IMN-002">Mẫu tem: Túi Tote Canvas</a></li>
+          <li><a href="traceability.html?code=JRAI-IMN-003">Mẫu tem: Áo Gile Heritage</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Địa Bàn Triển Khai</h4>
+        <p style="font-size: 0.88rem; color: #9C948D; line-height: 1.7; margin-bottom: 12px;">
+          📍 <strong>Hợp tác xã & CLB Dệt Thổ Cẩm:</strong><br>
+          Làng Kép, Xã Ia Mơ Nông, Huyện Chư Păh, Tỉnh Gia Lai.
+        </p>
+        <p style="font-size: 0.88rem; color: #9C948D; line-height: 1.7;">
+          📧 Email: <a href="mailto:contact@detnentuonglai.vn" style="color: var(--color-amber-glow);">contact@detnentuonglai.vn</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>© 2026 Dự án SVTHM 2026: “Giữ một nghề, dệt nên tương lai”. Bảo lưu mọi quyền.</div>
+      <div>Designed with ❤️ for Jrai Indigenous Cultural Heritage</div>
+    </div>
+  </footer>
+
+  <!-- GLOBAL MODAL -->
+  <div class="modal-backdrop" id="global-modal-backdrop">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Đóng">&times;</button>
+      <div id="modal-dynamic-content"></div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/products-data.js"></script>
+  <script src="js/artisans-data.js"></script>
+  <script src="js/motifs-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

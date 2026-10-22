@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sản Phẩm Thổ Cẩm — Dệt Nên Tương Lai | SVTHM 2026</title>
+  <meta name="description" content="Danh mục sản phẩm thổ cẩm Jrai thủ công tinh xảo: khăn choàng sợi bông, túi tote canvas, áo gile đương đại, khăn runner décor và bộ kit tự dệt DIY.">
+  <link rel="stylesheet" href="styles/main.css">
+  <style>
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 30px 0 10px;
+    }
+    .category-filter-btn {
+      padding: 9px 18px;
+      border-radius: var(--radius-full);
+      background: #231C18;
+      border: 1.5px solid rgba(229, 138, 31, 0.3);
+      color: #EDE4DB;
+      font-size: 0.84rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: var(--transition-smooth);
+    }
+    .category-filter-btn:hover, .category-filter-btn.active {
+      background: var(--color-bazan-red);
+      color: #fff;
+      border-color: var(--color-forest-gold);
+      box-shadow: 0 4px 15px rgba(185, 56, 58, 0.35);
+    }
+    .search-filter-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 25px;
+    }
+    .product-search-box {
+      position: relative;
+      min-width: 280px;
+      flex: 1;
+      max-width: 450px;
+    }
+    .product-search-box input {
+      width: 100%;
+      padding: 12px 18px 12px 42px;
+      border-radius: var(--radius-md);
+      border: 1.5px solid rgba(229, 138, 31, 0.3);
+      background: #231C18;
+      color: #FFFFFF;
+      font-size: 0.9rem;
+    }
+    .product-search-box input::placeholder {
+      color: #8A7E72;
+    }
+    .product-search-box svg {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--color-text-light);
+    }
+  </style>
+</head>
+<body class="lang-vi">
+
+  <!-- TOP NOTICE BAR -->
+  <div class="top-notice-bar">
+    <span class="lang-vi">✨ Đây là dự án được thực hiện bởi nhóm sinh viên Trường Đại học Kinh tế - Luật, ĐHQG-HCM • SVTHM 2026</span>
+    <span class="lang-en">✨ Project developed by students of University of Economics and Law, VNU-HCM • SVTHM 2026</span>
+  </div>
+
+  <!-- MAIN HEADER -->
+  <header class="main-header brocade-border-top">
+    <div class="container header-container">
+      <a href="index.html" class="logo">
+        <div class="logo-badge">J</div>
+        <div class="logo-text-wrap">
+          <span class="logo-title">DỆT NÊN TƯƠNG LAI</span>
+          <span class="logo-subtitle">DI SẢN THỔ CẨM JRAI • UEL - ĐHQG-HCM</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" id="main-nav">
+        <ul class="nav-list">
+          <li><a href="index.html" class="nav-link"><span class="lang-vi">Trang chủ</span><span class="lang-en">Home</span></a></li>
+          <li><a href="about.html" class="nav-link"><span class="lang-vi">Về chúng tôi</span><span class="lang-en">About Us</span></a></li>
+          <li><a href="products.html" class="nav-link active"><span class="lang-vi">Sản phẩm dệt</span><span class="lang-en">Brocade Products</span></a></li>
+          <li><a href="artisans.html" class="nav-link"><span class="lang-vi">Nghệ nhân</span><span class="lang-en">Master Artisans</span></a></li>
+          <li><a href="motifs.html" class="nav-link"><span class="lang-vi">Ngân hàng hoa văn</span><span class="lang-en">Cultural Bank</span><span class="nav-badge-pill">Central</span></a></li>
+          <li><a href="traceability.html" class="nav-link"><span class="lang-vi">Tra cứu QR</span><span class="lang-en">QR Traceability</span></a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button class="lang-switch-btn" id="lang-toggle-btn" title="Language Switcher">
+          <span class="lang-vi">EN</span>
+          <span class="lang-en">VI</span>
+        </button>
+        <button class="mobile-toggle" id="mobile-toggle" aria-label="Menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- PRODUCTS HERO -->
+  <section class="section section-watermark-weave" style="padding: 75px 0 65px; border-bottom: 2px solid var(--color-forest-gold);">
+    <div class="container text-center">
+      <span class="section-tag gold">
+        <span class="lang-vi">Thủ công bản địa độc bản</span>
+        <span class="lang-en">Bespoke Indigenous Craft</span>
+      </span>
+      <h1 class="section-title" style="margin-bottom: 15px;">
+        <span class="lang-vi">Bộ Sưu Tập Thổ Cẩm Jrai Ứng Dụng</span>
+        <span class="lang-en">Contemporary Jrai Handwoven Collection</span>
+      </h1>
+      <p class="section-desc" style="max-width: 750px; margin: 0 auto;">
+        <span class="lang-vi">Mỗi sản phẩm đều được dệt thủ công bởi các nghệ nhân làng Kép (Ia Mơ Nông, Gia Lai). Khi mua sản phẩm, bạn nhận kèm một mã định danh số QR giúp tra cứu tên thợ dệt, thời gian hoàn thành và ý nghĩa hoa văn.</span>
+        <span class="lang-en">Handcrafted by indigenous artisans in Ia Mo Nong village. Each piece comes with a digital QR tag linking to its maker, weaving hours, and cultural motif story.</span>
+      </p>
+    </div>
+  </section>
+
+  <!-- PRODUCTS CONTENT & FILTER -->
+  <section class="section section-watermark-stilt">
+    <div class="container">
+      <div class="search-filter-wrap">
+        <!-- Bộ lọc Category -->
+        <div class="filter-bar">
+          <button class="category-filter-btn active" data-filter="all">
+            <span class="lang-vi">Tất cả sản phẩm</span>
+            <span class="lang-en">All Products</span>
+          </button>
+          <button class="category-filter-btn" data-filter="fashion">
+            <span class="lang-vi">Thời trang ứng dụng</span>
+            <span class="lang-en">Wearable Fashion</span>
+          </button>
+          <button class="category-filter-btn" data-filter="accessories">
+            <span class="lang-vi">Phụ kiện & Quà lưu niệm</span>
+            <span class="lang-en">Everyday Accessories</span>
+          </button>
+          <button class="category-filter-btn" data-filter="decor">
+            <span class="lang-vi">Không gian sống & Décor</span>
+            <span class="lang-en">Living & Décor</span>
+          </button>
+          <button class="category-filter-btn" data-filter="diy">
+            <span class="lang-vi">Bộ Kit DIY Trải nghiệm</span>
+            <span class="lang-en">DIY Weaving Kit</span>
+          </button>
+        </div>
+
+        <!-- Ô tìm kiếm sản phẩm -->
+        <div class="product-search-box">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" id="product-search-input" placeholder="Tìm kiếm theo tên sản phẩm, mã hoặc nghệ nhân...">
+        </div>
+      </div>
+
+      <!-- Grid danh sách sản phẩm -->
+      <div class="products-grid" id="all-products-grid">
+        <!-- Render tự động bởi js/main.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- MAIN FOOTER -->
+  <footer class="main-footer">
+    <div class="container footer-top">
+      <div>
+        <div class="footer-logo-wrap">
+          <div class="logo-badge">J</div>
+          <div>
+            <h3 style="font-family: var(--font-serif); font-size: 1.2rem; color: #fff;">DỆT NÊN TƯƠNG LAI</h3>
+            <span style="font-size: 0.7rem; color: var(--color-forest-gold); font-weight: 800; letter-spacing: 1px;">DI SẢN THỔ CẨM JRAI</span>
+          </div>
+        </div>
+        <p class="footer-tagline">“Giữ một nghề, dệt nên tương lai.”</p>
+        <p class="footer-desc">
+          Dự án nghiên cứu & khởi nghiệp đổi mới sáng tạo SVTHM 2026. Số hóa di sản thổ cẩm Jrai và kết nối chuỗi giá trị sinh kế cộng đồng tại Gia Lai.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Khám Phá Di Sản</h4>
+        <ul class="footer-links">
+          <li><a href="index.html">Trang chủ dự án</a></li>
+          <li><a href="about.html">Về chúng tôi & Đội ngũ</a></li>
+          <li><a href="about.html#journey">Hành trình 6 bước dệt</a></li>
+          <li><a href="products.html">Bộ sưu tập sản phẩm</a></li>
+          <li><a href="motifs.html">Ngân hàng số hoa văn</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Tra Cứu & Xác Minh</h4>
+        <ul class="footer-links">
+          <li><a href="traceability.html">Quét mã QR sản phẩm</a></li>
+          <li><a href="traceability.html?code=JRAI-IMN-001">Mẫu tem: Khăn choàng dạ</a></li>
+          <li><a href="traceability.html?code=JRAI-IMN-002">Mẫu tem: Túi Tote Canvas</a></li>
+          <li><a href="traceability.html?code=JRAI-IMN-003">Mẫu tem: Áo Gile Heritage</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Địa Bàn Triển Khai</h4>
+        <p style="font-size: 0.88rem; color: #9C948D; line-height: 1.7; margin-bottom: 12px;">
+          📍 <strong>Hợp tác xã & CLB Dệt Thổ Cẩm:</strong><br>
+          Làng Kép, Xã Ia Mơ Nông, Huyện Chư Păh, Tỉnh Gia Lai.
+        </p>
+        <p style="font-size: 0.88rem; color: #9C948D; line-height: 1.7;">
+          📧 Email: <a href="mailto:contact@detnentuonglai.vn" style="color: var(--color-amber-glow);">contact@detnentuonglai.vn</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      <div>© 2026 Dự án SVTHM 2026: “Giữ một nghề, dệt nên tương lai”. Bảo lưu mọi quyền.</div>
+      <div>Designed with ❤️ for Jrai Indigenous Cultural Heritage</div>
+    </div>
+  </footer>
+
+  <!-- GLOBAL MODAL -->
+  <div class="modal-backdrop" id="global-modal-backdrop">
+    <div class="modal-dialog">
+      <button class="modal-close-btn" id="modal-close-btn" aria-label="Đóng">&times;</button>
+      <div id="modal-dynamic-content"></div>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script src="js/products-data.js"></script>
+  <script src="js/artisans-data.js"></script>
+  <script src="js/motifs-data.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
