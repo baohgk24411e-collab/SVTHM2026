@@ -247,15 +247,17 @@ function initProductsPage() {
 
   if (!grid || typeof PRODUCTS_DATA === 'undefined') return;
 
+  const urlParams = new URLSearchParams(window.location.search);
+  const initialCategory = urlParams.get('cat') || 'all';
+  const filterArtisan = urlParams.get('artisan');
+
   function render(filter = 'all', searchQuery = '') {
     let list = PRODUCTS_DATA;
+    if (filterArtisan) {
+      list = list.filter(p => p.artisanId === filterArtisan);
+    }
     if (filter !== 'all') {
-      list = list.filter(p => {
-        if (p.category === filter) return true;
-        if (filter === 'fashion' && (p.category === 'dress' || p.categoryNameVi === 'Váy' || p.categoryNameVi === 'Áo')) return true;
-        if (filter === 'accessories' && (p.category === 'wallet' || p.category === 'scarf' || p.category === 'bag' || p.categoryNameVi === 'Ví' || p.categoryNameVi === 'Khăn quàng cổ' || p.categoryNameVi === 'Túi')) return true;
-        return false;
-      });
+      list = list.filter(p => p.category === filter);
     }
     if (searchQuery.trim() !== '') {
       const q = searchQuery.toLowerCase().trim();
@@ -263,7 +265,8 @@ function initProductsPage() {
         p.nameVi.toLowerCase().includes(q) || 
         p.nameEn.toLowerCase().includes(q) ||
         p.id.toLowerCase().includes(q) ||
-        p.artisanName.toLowerCase().includes(q)
+        p.artisanName.toLowerCase().includes(q) ||
+        (p.motifUsed && p.motifUsed.toLowerCase().includes(q))
       );
     }
 
@@ -271,17 +274,28 @@ function initProductsPage() {
       grid.innerHTML = `
         <div style="grid-column: 1/-1; text-align: center; padding: 60px 20px;">
           <h3 style="font-size: 1.3rem; margin-bottom: 8px;">Không tìm thấy sản phẩm phù hợp</h3>
-          <p style="color: var(--color-text-muted);">Vui lòng thử lại với từ khóa khác.</p>
+          <p style="color: var(--color-text-muted);">Vui lòng thử lại với danh mục hoặc từ khóa khác.</p>
+          ${filterArtisan ? `<a href="products.html" class="btn btn-sm btn-outline-dark" style="margin-top: 15px;">Xóa bộ lọc nghệ nhân</a>` : ''}
         </div>
       `;
       return;
     }
 
-    grid.innerHTML = list.map(p => createProductCardHTML(p)).join('');
-  }
+    let artisanBanner = '';
+    if (filterArtisan && list.length > 0) {
+      const artName = list[0].artisanName;
+      artisanBanner = `
+        <div style="grid-column: 1/-1; background: #FAF6F0; border: 1.5px solid var(--color-forest-gold); border-radius: var(--radius-md); padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <div>
+            <strong>Đang hiển thị tác phẩm của:</strong> <span style="color: var(--color-bazan-red); font-weight: 800;">${artName}</span> (${list.length} sản phẩm)
+          </div>
+          <a href="products.html" style="font-size: 0.85rem; color: #78350F; text-decoration: underline; font-weight: 700;">✕ Xem tất cả sản phẩm</a>
+        </div>
+      `;
+    }
 
-  const urlParams = new URLSearchParams(window.location.search);
-  const initialCategory = urlParams.get('cat') || 'all';
+    grid.innerHTML = artisanBanner + list.map(p => createProductCardHTML(p)).join('');
+  }
 
   filterBtns.forEach(btn => {
     if (btn.dataset.filter === initialCategory) {
@@ -366,13 +380,17 @@ function initProductDetailPage() {
             ${product.categoryNameVi} • SỐ HIỆU: ${product.id}
           </span>
 
-          <h1 style="font-size: 1.8rem; font-weight: 900; color: #1F1D1B; margin-bottom: 12px;">
+          <h1 style="font-size: 1.8rem; font-weight: 900; color: #1F1D1B; margin-bottom: 8px;">
             ${product.nameVi}
           </h1>
 
+          <div style="font-size: 1.65rem; font-weight: 900; color: var(--color-bazan-red); margin-bottom: 10px;">
+            ${product.priceFormatted}
+          </div>
+
           <div style="margin-bottom: 22px;">
             <div class="product-intermediary-badge" style="font-size: 0.88rem; padding: 7px 16px; border-radius: 8px;">
-              🌿 Kết nối trung gian phi lợi nhuận • Liên hệ báo giá & đặt dệt trực tiếp từ Nghệ nhân & CLB
+              🌿 Giá niêm yết từ nghệ nhân buôn làng • Đặt dệt trực tiếp không qua trung gian ép giá
             </div>
           </div>
 
@@ -388,31 +406,41 @@ function initProductDetailPage() {
 
           <!-- Thông tin nghệ nhân dệt ra sản phẩm -->
           <div style="background: #FAF6F0; border: 1px solid #E5DACB; border-radius: var(--radius-md); padding: 18px; margin-bottom: 20px;">
-            <div style="font-size: 0.75rem; font-weight: 800; color: #B45309; text-transform: uppercase; margin-bottom: 4px;">NGHỆ NHÂN DỆT TÁC PHẨM NÀY</div>
-            <div style="font-size: 1.1rem; font-weight: 800; color: var(--color-bazan-red); margin-bottom: 4px;">
-              <a href="artisans.html" style="color: var(--color-bazan-red); text-decoration: underline;">
-                ${product.artisanName}
-              </a>
+            <div style="font-size: 0.75rem; font-weight: 800; color: #B45309; text-transform: uppercase; margin-bottom: 8px;">NGHỆ NHÂN DỆT TÁC PHẨM NÀY</div>
+            <div style="display: flex; gap: 16px; align-items: center;">
+              ${artisan && artisan.avatar ? `<a href="artisans.html?artisan=${product.artisanId}"><img src="${artisan.avatar}" alt="${artisan.name}" style="width: 65px; height: 65px; object-fit: cover; border-radius: 50%; border: 2px solid var(--color-forest-gold); flex-shrink: 0;"></a>` : ''}
+              <div>
+                <div style="font-size: 1.1rem; font-weight: 800; color: var(--color-bazan-red); margin-bottom: 4px;">
+                  <a href="artisans.html?artisan=${product.artisanId}" style="color: var(--color-bazan-red); text-decoration: underline;">
+                    ${product.artisanName}
+                  </a>
+                </div>
+                <div style="font-size: 0.82rem; color: #5D554D; margin-bottom: 4px;">
+                  📍 ${product.artisanVillage} • ⏱️ <strong>${product.weavingHours}</strong>
+                </div>
+                <p style="font-size: 0.85rem; color: #5D554D; font-style: italic; margin: 0;">
+                  ${artisan ? artisan.quoteVi : 'Mỗi nếp dệt là một câu chuyện tình yêu đại ngàn.'}
+                </p>
+              </div>
             </div>
-            <div style="font-size: 0.82rem; color: #5D554D; margin-bottom: 8px;">
-              📍 ${product.artisanVillage} • ⏱️ <strong>${String(product.weavingHours).includes('ngày') || String(product.weavingHours).includes('giờ') ? product.weavingHours : product.weavingHours + ' giờ dệt tay'}</strong>
-            </div>
-            <p style="font-size: 0.85rem; color: #5D554D; font-style: italic; margin: 0;">
-              ${artisan ? artisan.quoteVi : 'Mỗi nếp dệt là một câu chuyện tình yêu đại ngàn.'}
-            </p>
           </div>
 
-          <!-- Hoa văn tích hợp link sang Ngân hàng hoa văn -->
+          <!-- Hoa văn tích hợp link sang Ngân hàng hoa văn (khớp hoàn toàn với sản phẩm) -->
           <div style="background: #FAF6F0; border: 1px solid #E5DACB; border-radius: var(--radius-md); padding: 18px; margin-bottom: 20px;">
-            <div style="font-size: 0.75rem; font-weight: 800; color: #B45309; text-transform: uppercase; margin-bottom: 4px;">HOA VĂN DI SẢN TRÊN SẢN PHẨM</div>
-            <div style="font-size: 1.05rem; font-weight: 800; color: var(--color-bazan-red); margin-bottom: 6px;">
-              <a href="motifs.html" style="color: var(--color-bazan-red); text-decoration: underline;">
-                ${product.motifUsed}
-              </a>
+            <div style="font-size: 0.75rem; font-weight: 800; color: #B45309; text-transform: uppercase; margin-bottom: 8px;">HOA VĂN DI SẢN TRÊN SẢN PHẨM</div>
+            <div style="display: flex; gap: 16px; align-items: center;">
+              ${motif && motif.image ? `<a href="motifs.html?motif=${product.motifId}"><img src="${motif.image}" alt="${motif.nameVi}" style="width: 70px; height: 70px; object-fit: contain; background: #FFFFFF; border: 1px solid #E5DACB; border-radius: 8px; padding: 4px; flex-shrink: 0;"></a>` : ''}
+              <div>
+                <div style="font-size: 1.05rem; font-weight: 800; color: var(--color-bazan-red); margin-bottom: 4px;">
+                  <a href="motifs.html?motif=${product.motifId}" style="color: var(--color-bazan-red); text-decoration: underline;">
+                    ${product.motifUsed}
+                  </a>
+                </div>
+                <p style="font-size: 0.85rem; color: #5D554D; margin: 0; line-height: 1.5;">
+                  ${motif ? motif.meaningVi : 'Hoa văn mang biểu tượng phồn vinh và linh thiêng của cộng đồng Jrai.'}
+                </p>
+              </div>
             </div>
-            <p style="font-size: 0.85rem; color: #5D554D; margin: 0;">
-              ${motif ? motif.meaningVi : 'Hoa văn mang biểu tượng phồn vinh và linh thiêng của cộng đồng Jrai.'}
-            </p>
           </div>
 
           <!-- Chi tiết kỹ thuật & Tác động xã hội -->
@@ -444,11 +472,25 @@ function initArtisansPage() {
   const grid = document.getElementById('all-artisans-grid');
   if (!grid || typeof ARTISANS_DATA === 'undefined') return;
   grid.innerHTML = ARTISANS_DATA.map(a => createArtisanCardHTML(a)).join('');
+
+  // Tự động cuộn và làm nổi bật nghệ nhân nếu có tham số URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const targetArtisan = urlParams.get('artisan') || window.location.hash.replace('#', '');
+  if (targetArtisan) {
+    setTimeout(() => {
+      const el = document.getElementById(targetArtisan);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        el.style.border = '2.5px solid var(--color-forest-gold)';
+        el.style.boxShadow = '0 0 35px rgba(217, 119, 6, 0.45)';
+      }
+    }, 300);
+  }
 }
 
 function createArtisanCardHTML(a) {
   return `
-    <div class="artisan-card">
+    <div class="artisan-card" id="${a.id}">
       <div class="artisan-img-wrap">
         <img src="${a.avatar}" alt="${a.name}" loading="lazy">
         <span class="artisan-exp-badge">${a.experienceYears} Năm Giữ Nghề</span>
@@ -462,7 +504,7 @@ function createArtisanCardHTML(a) {
         </p>
 
         <div style="margin-top: auto; display: flex; gap: 8px;">
-          <a href="products.html" class="btn btn-sm btn-primary" style="flex: 1;">
+          <a href="products.html?artisan=${a.id}" class="btn btn-sm btn-primary" style="flex: 1;">
             Xem tác phẩm dệt (${a.productIds.length})
           </a>
         </div>
@@ -485,6 +527,20 @@ function initMotifsPage() {
       list = list.filter(m => m.theme === theme);
     }
     grid.innerHTML = list.map(m => createMotifCardHTML(m)).join('');
+
+    // Tự động cuộn và làm nổi bật hoa văn nếu có tham số URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetMotif = urlParams.get('motif') || window.location.hash.replace('#', '');
+    if (targetMotif) {
+      setTimeout(() => {
+        const el = document.getElementById(targetMotif);
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.style.border = '2.5px solid var(--color-bazan-red)';
+          el.style.boxShadow = '0 0 35px rgba(158, 42, 43, 0.45)';
+        }
+      }, 300);
+    }
   }
 
   filterBtns.forEach(btn => {
@@ -585,13 +641,13 @@ function createProductCardHTML(p) {
           <a href="${fullDetailUrl}">${p.nameVi}</a>
         </h3>
         
-        <a href="artisans.html" class="product-artisan-link">
+        <a href="artisans.html?artisan=${p.artisanId}" class="product-artisan-link">
           👤 ${p.artisanName}
         </a>
 
         <div class="product-footer">
           <div class="product-price-row">
-            <span class="product-intermediary-badge">✨ Dệt thủ công theo yêu cầu</span>
+            <span class="product-price" style="font-size: 1.15rem; font-weight: 800; color: var(--color-bazan-red);">${p.priceFormatted}</span>
             <button class="btn-detail" onclick="openQRCodeModal('${p.id}')" title="Mở mã QR tem mác">
               Mã QR
             </button>
@@ -617,7 +673,7 @@ function createMotifCardHTML(m) {
     : '';
 
   return `
-    <div class="motif-card">
+    <div class="motif-card" id="${m.id}">
       <div class="motif-header">
         <img src="${m.image}" alt="${m.nameVi}" loading="lazy">
         <div class="motif-jrai-name">${m.nameJrai}</div>
@@ -632,8 +688,9 @@ function createMotifCardHTML(m) {
         <div class="motif-verified">
           <span>✓ Xác minh: ${m.artisanVerification}</span>
         </div>
-        <div style="margin-top: 15px; display: flex; justify-content: flex-end;">
-          <button class="btn btn-sm btn-outline-dark" onclick="openMotifModal('${m.id}')">
+        <div style="margin-top: 15px; display: flex; gap: 8px; justify-content: space-between;">
+          ${m.appliedProducts && m.appliedProducts.length ? `<a href="products.html" class="btn btn-sm btn-primary" style="flex: 1; text-align: center; justify-content: center;">Xem SP (${m.appliedProducts.length})</a>` : ''}
+          <button class="btn btn-sm btn-outline-dark" onclick="openMotifModal('${m.id}')" style="flex: 1.3;">
             Xem triết lý & câu chuyện
           </button>
         </div>
