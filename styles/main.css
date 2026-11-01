@@ -2037,3 +2037,84 @@ body.lang-en .lang-vi { display: none !important; }
     padding-top: 50px;
   }
 }
+
+/* ==========================================================================
+   SERIES THỔ CẨM — CÂU CHUYỆN SẢN PHẨM & GIẢI MÃ HOA VĂN STYLES
+   ========================================================================== */
+.product-story-section {
+  border-top: 1px solid #E5DACB;
+  padding: 48px 40px;
+  background: #FCFAF7;
+  position: relative;
+}
+.product-story-lead-quote {
+  border-left: 4px solid var(--color-forest-gold);
+  background: #FFFFFF;
+  padding: 16px 22px;
+  border-radius: 0 12px 12px 0;
+  margin: 20px 0 24px;
+  box-shadow: 0 2px 10px rgba(60, 45, 30, 0.04);
+}
+.product-story-paragraph {
+  margin-bottom: 16px;
+  line-height: 1.85;
+  color: #3A332C;
+  font-size: 0.98rem;
+  text-align: justify;
+}
+.product-story-subheading {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: #1F1D1B;
+  margin: 28px 0 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.product-story-subheading::before {
+  content: '❖';
+  color: var(--color-bazan-red);
+  font-size: 0.9rem;
+}
+.motif-research-section {
+  border-top: 1px solid #E5DACB;
+  padding: 45px 40px;
+  background: #FFFFFF;
+}
+.motif-bullet-card {
+  background: #FAF7F2;
+  border: 1px solid #EBE3DA;
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 12px;
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: #3A332C;
+  transition: var(--transition-smooth);
+}
+.motif-bullet-card:hover {
+  border-color: var(--color-forest-gold);
+  box-shadow: 0 4px 15px rgba(217, 119, 6, 0.08);
+}
+.motif-modal-research-wrap {
+  padding: 35px 30px;
+}
+.motif-applied-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: #2A231F;
+  border: 1px solid rgba(229, 138, 31, 0.3);
+  border-radius: var(--radius-full);
+  color: #EDE4DB;
+  font-size: 0.82rem;
+  text-decoration: none;
+  transition: var(--transition-smooth);
+}
+.motif-applied-pill:hover {
+  background: var(--color-bazan-red);
+  color: #fff;
+  border-color: var(--color-bazan-red);
+}
+

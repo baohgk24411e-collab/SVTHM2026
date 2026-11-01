@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-DỰ ÁN SVTHM 2026: DỆT NÊN TƯƠNG LAI
-Script đồng bộ và chuyển đổi toàn bộ cơ sở dữ liệu từ 'database SVTHM 2026':
+DỰ ÁN SVTHM 2026: GIỮ MỘT NGHỀ - DỆT NÊN TƯƠNG LAI
+Script đồng bộ và chuyển đổi toàn bộ cơ sở dữ liệu từ 'database SVTHM 2026'
+kết hợp dữ liệu chuyên sâu từ 'SERIES THỔ CẨM.docx':
 1. Copy ảnh sản phẩm vào images/products/ với tên chuẩn hóa
-2. Tạo js/products-data.js (57 sản phẩm, giá chuẩn, ngày dệt chuẩn, nghệ nhân, hoa văn khớp)
+2. Tạo js/products-data.js (57 sản phẩm, giá chuẩn, ngày dệt chuẩn, câu chuyện sản phẩm văn hóa chân thực)
 3. Cập nhật js/artisans-data.js (9 nghệ nhân thực tế)
-4. Cập nhật js/motifs-data.js (20+ hoa văn với ảnh thật từ database)
+4. Cập nhật js/motifs-data.js (20 hoa văn với đầy đủ nghiên cứu ý nghĩa hoa văn, triết lý Yang Kơtơp, p'nga/rúp)
 """
 
 import os
@@ -25,6 +26,14 @@ DST_ARTISANS_IMG = os.path.join(ROOT_DIR, 'images', 'artisans')
 os.makedirs(DST_PRODUCTS_IMG, exist_ok=True)
 os.makedirs(DST_MOTIFS_IMG, exist_ok=True)
 os.makedirs(DST_ARTISANS_IMG, exist_ok=True)
+
+# Load series_data.json extracted from SERIES THỔ CẨM.docx
+SERIES_JSON_PATH = os.path.join(ROOT_DIR, 'scripts', 'series_data.json')
+with open(SERIES_JSON_PATH, 'r', encoding='utf-8') as f:
+    SERIES_DATA = json.load(f)
+
+DOC_MOTIFS = SERIES_DATA['motifs']
+DOC_STORIES = {s['index']: s for s in SERIES_DATA['stories']}
 
 # ==============================================================================
 # 1. DANH SÁCH 9 NGHỆ NHÂN CHUẨN
@@ -222,9 +231,9 @@ ARTISAN_NAME_TO_OBJ = {
 }
 
 # ==============================================================================
-# 2. DANH SÁCH 20 HOA VĂN CHUẨN
+# 2. DANH SÁCH 20 HOA VĂN NÂNG CẤP VỚI NỘI DUNG TỪ SERIES THỔ CẨM.DOCX
 # ==============================================================================
-MOTIFS_DATA = [
+BASE_MOTIFS = [
     {
         "id": "motif-jrai-001",
         "motif_code": "JRAI-001",
@@ -234,9 +243,9 @@ MOTIFS_DATA = [
         "theme": "nature",
         "themeNameVi": "Thiên nhiên & Muông thú",
         "technique": "Dệt cài sợi nổi Kơnech (Kỹ thuật đếm sợi cách điệu nổi 3D)",
-        "philosophyVi": "Người Jrai quan niệm tiếng gà gáy sớm xua tan bóng tối và ma quỷ, đánh thức buôn làng đón ngày mới. Hình ảnh đôi gà song hành là ước vọng về sự ấm no, gia đình thuận hòa.",
-        "meaningVi": "Biểu tượng của sự khởi đầu, ánh sáng và hy vọng. Tiếng gà gáy xua tan bóng tối, báo hiệu mùa màng tươi tốt và sinh khí dồi dào.",
-        "meaningEn": "Symbol of dawn, celestial light, and fresh beginnings. The rooster's crow awakens the highlands, dispersing shadows and calling forth vitality.",
+        "philosophyVi": "Người Jrai quan niệm tiếng gà gáy sớm xua tan bóng tối và ma quỷ, đánh thức buôn làng đón ngày mới. Hình ảnh con gà thể hiện ước mơ về sự sinh sôi, mùa màng bội thu và lòng thành kính với thế giới tự nhiên.",
+        "meaningVi": "Biểu tượng của sự sống, ánh sáng và sinh sôi phát triển. Gắn bó mật thiết với nghi lễ cúng Yang và ước vọng gia đình ấm no.",
+        "meaningEn": "Symbol of dawn, celestial light, and fresh beginnings. The rooster disperses shadows and embodies prosperity.",
         "colors": ["Đỏ tươi", "Xanh lá", "Vàng nghệ", "Trắng ngà"],
         "artisanVerification": "Nghệ nhân Rơ châm Nghị (30 năm tuổi nghề)",
         "village": "Làng Kép, xã Ia Mơ Nông, huyện Chư Păh, Gia Lai",
@@ -247,15 +256,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-002",
         "motif_code": "JRAI-002",
-        "nameJrai": "Hình Thoi & Chữ X",
-        "nameVi": "Hoa Văn Hình Học Cổ — Nảy Nở & Khát Vọng Tự Do",
-        "nameEn": "Geometric Diamond & X Motif — Abundance & Freedom",
+        "nameJrai": "Hình Thoi & Chữ X (P'nga / Rúp)",
+        "nameVi": "Hoa Văn Hình Học Cổ — Ngôn Ngữ Biểu Tượng Di Sản",
+        "nameEn": "Ancient Geometric Motifs — Sacred Symbolic Language",
         "theme": "life",
         "themeNameVi": "Đời sống & Con người",
         "technique": "Dệt luồn chỉ kép ziczac đối xứng qua tâm",
-        "philosophyVi": "Hình thoi nở hoa ở trung tâm tượng trưng cho hạt mầm, hoa rừng và sự sinh sôi nảy nở của mẫu hệ. Dải hình chữ X đan chéo cách điệu đôi cánh chim vươn cao giữa núi rừng đại ngàn Chư Păh.",
-        "meaningVi": "Hình thoi nở hoa tượng trưng cho hạt giống và sự sinh sôi nảy nở, cầu mong mùa màng bội thu. Hình chữ X màu xanh cách điệu đôi cánh chim đang bay, thể hiện khát vọng tự do và sức sống mãnh liệt.",
-        "meaningEn": "Blooming diamond symbolizes fertile seeds and prosperity. Crossing X-bands represent soaring bird wings and unbroken mountain spirit.",
+        "philosophyVi": "Hệ thống ngôn ngữ biểu tượng phản ánh nhân sinh quan và triết lý 'Vạn vật hữu linh' (Yang Kơtơp). Đường thẳng (dưng room) là trật tự buôn làng; ziczac (den đông) là dòng suối uốn lượn; tam giác là mái nhà rông; hình thoi (klang liếp) là sự phồn thực sinh sôi; mái nhà (sat char) là che chở dòng họ.",
+        "meaningVi": "Ngôn ngữ ký hiệu phản ánh trật tự buôn làng, núi rừng hoang sơ và ước vọng sống hòa hợp tuyệt đối cùng thần linh và thiên nhiên.",
+        "meaningEn": "Ancient Jrai symbolic language reflecting communal order, cosmic harmony, and matrilineal continuity.",
         "colors": ["Xanh lá chàm", "Đỏ thẫm", "Vàng nghệ", "Trắng ngà"],
         "artisanVerification": "Nghệ nhân Rơ châm Krế (35 năm tuổi nghề)",
         "village": "Làng Phung, xã Ia Mơ Nông, Chư Păh, Gia Lai",
@@ -267,14 +276,14 @@ MOTIFS_DATA = [
         "id": "motif-jrai-003",
         "motif_code": "JRAI-003",
         "nameJrai": "Hơma Bông Lúa",
-        "nameVi": "Hoa Văn Cây Lúa — Tri Ân Thần Yang & Mùa Vàng",
+        "nameVi": "Hoa Văn Cây Lúa — No Ấm & Lòng Biết Ơn Mẹ Lúa",
         "nameEn": "Rice Stalk Motif — Yang Gratitude & Golden Harvest",
         "theme": "nature",
         "themeNameVi": "Thiên nhiên & Nông nghiệp",
         "technique": "Dệt vạch phân tầng ngang truyền thống",
-        "philosophyVi": "Bông lúa trĩu hạt là nguồn sống thiêng liêng nuôi dưỡng người Jrai bao đời. Từng nhánh lúa vươn cao trong hoa văn là lòng biết ơn sâu sắc tới mẹ Lúa và thần Yang đã ban mưa thuận gió hòa.",
-        "meaningVi": "Cầu mong no đủ, mùa màng bội thu. Thể hiện lòng biết ơn mẹ Lúa và thần linh nuôi dưỡng con người qua bao thế hệ. Bông lúa vươn cao biểu trưng cho sự kiên cường và phát triển dẻo dai.",
-        "meaningEn": "Revering the divine Rice Mother and celestial deities. Cascading heavy grains symbolize abundant food stores and village peace.",
+        "philosophyVi": "Gắn liền với nền kinh tế nương rẫy và triết lý 'vạn vật hữu linh'. Hoa văn cây lúa gửi gắm lòng biết ơn đối với thần Yang và trời đất đã ban mưa thuận gió hòa, cầu mùa màng bội thu trong Lễ mừng lúa mới.",
+        "meaningVi": "Biểu tượng của sự ấm no, phồn thực và lòng tri ân nguồn cội nuôi dưỡng buôn làng qua bao thế hệ.",
+        "meaningEn": "Revering divine rice harvests and celestial deities. Cascading grains symbolize abundance and peace.",
         "colors": ["Đỏ tươi", "Tím chàm", "Trắng ngà", "Xanh lá"],
         "artisanVerification": "Nghệ nhân Rơ châm Nghel (36 năm cống hiến)",
         "village": "Làng Kép, xã Ia Mơ Nông, Chư Păh, Gia Lai",
@@ -286,14 +295,14 @@ MOTIFS_DATA = [
         "id": "motif-jrai-004",
         "motif_code": "JRAI-004",
         "nameJrai": "Hoa Mào Gà",
-        "nameVi": "Hoa Văn Hoa Mào Gà — Che Chở & Bình An",
-        "nameEn": "Cockscomb Flower Motif — Protection & Steadfast Love",
+        "nameVi": "Hoa Văn Hoa Mào Gà — Năng Lượng Sống & Che Chở",
+        "nameEn": "Cockscomb Flower Motif — Vitality & Sacred Shelter",
         "theme": "ritual",
         "themeNameVi": "Tín ngưỡng & Lễ hội",
         "technique": "Dệt đứng hai bông song hành trên nền chàm mun",
-        "philosophyVi": "Sắc đỏ thắm của hoa mào gà đại diện cho niềm vui và sinh khí. Gắn liền với linh vật gà trống bảo vệ bình an cho buôn làng, hoa dệt đứng song hành còn là biểu tượng cho tình yêu thủy chung, son sắt.",
-        "meaningVi": "Tượng trưng cho sự may mắn, rực rỡ và che chở bình an khỏi điều dữ. Hoa thường được dệt đứng thành đôi, biểu trưng cho tình yêu bền chặt, gia đình hạnh phúc.",
-        "meaningEn": "Vibrant cockscomb crimson dispels ill fortune and preserves sacred peace. Paired vertical blooms represent faithful love and familial bonds.",
+        "philosophyVi": "Sắc đỏ nổi bật của hoa mào gà tượng trưng cho may mắn, niềm vui và năng lượng sống mãnh liệt. Thể hiện sự hòa hợp giữa con người với thiên nhiên và ước nguyện gia đình sung túc, bình an.",
+        "meaningVi": "Tượng trưng cho sự may mắn, rực rỡ và che chở bình an. Dệt đứng đôi biểu trưng cho tình yêu bền chặt và ngọn lửa gia đình.",
+        "meaningEn": "Vibrant crimson dispels ill fortune and preserves peace. Paired vertical blooms represent faithful love.",
         "colors": ["Đỏ thắm", "Xanh ngọc", "Hồng nhạt", "Đen chì"],
         "artisanVerification": "Nghệ nhân H' Uyên Niê (20 năm truyền nghề)",
         "village": "Xã Ia Mơ Nông, Chư Păh, Gia Lai",
@@ -305,14 +314,14 @@ MOTIFS_DATA = [
         "id": "motif-jrai-005",
         "motif_code": "JRAI-005",
         "nameJrai": "Cây Nêu Yang",
-        "nameVi": "Hoa Văn Cây Nêu Yang — Trục Vũ Trụ & Kết Nối Thần Linh",
+        "nameVi": "Hoa Văn Cây Nêu Yang — Trục Vũ Trụ & Cầu Nối Tâm Linh",
         "nameEn": "Sacred Ceremonial Pole Motif — Cosmic Axis",
         "theme": "ritual",
         "themeNameVi": "Tín ngưỡng & Lễ hội",
         "technique": "Dệt nổi hình thoi chân nêu và tua rua rủ truyền thống",
-        "philosophyVi": "Cây nêu dựng giữa sân nhà rông là trục vũ trụ kết nối con người với thần Yang. Các tua hoa văn rủ xuống mang lời nguyện cầu mưa thuận gió hòa, bảo bọc buôn làng khỏi mọi hiểm nguy.",
-        "meaningVi": "Cầu nối tâm linh kết nối con người với trời đất trong lễ hội buôn làng, xua đuổi tà khí và bảo vệ sự bình an cho cộng đồng.",
-        "meaningEn": "Sacred communal axis connecting earthly mortals to heavenly Yang deities. Woven tassels embody prayers for gentle rains and eternal communal harmony.",
+        "philosophyVi": "Cây nêu là 'cầu nối' giữa mặt đất (con người) với bầu trời (thần linh / Yang) trong các nghi lễ nông nghiệp và lễ bỏ mả Pơthi. Thể hiện sự thành kính, cầu mong mưa thuận gió hòa và buôn làng khỏe mạnh.",
+        "meaningVi": "Biểu tượng kết nối tâm linh thiêng liêng, gửi gắm ước nguyện bình an, mùa màng tươi tốt và cuộc sống thanh bình.",
+        "meaningEn": "Sacred communal axis connecting mortals to heavenly Yang deities, channeling protection and peace.",
         "colors": ["Đỏ cờ", "Xanh lá chàm", "Vàng tươi", "Trắng ngà"],
         "artisanVerification": "Nghệ nhân Rơ Châm Phaih (28 năm tuổi nghề)",
         "village": "Làng Kép, xã Ia Mơ Nông, Gia Lai",
@@ -324,14 +333,14 @@ MOTIFS_DATA = [
         "id": "motif-jrai-006",
         "motif_code": "JRAI-006",
         "nameJrai": "Con Cá Suối",
-        "nameVi": "Hoa Văn Con Cá Suối — Nguồn Sống & No Đủ",
+        "nameVi": "Hoa Văn Con Cá Suối — Nguồn Sống Đại Ngàn & No Đủ",
         "nameEn": "Stream Fish Motif — Source of Life & Abundance",
         "theme": "nature",
         "themeNameVi": "Thiên nhiên & Muông thú",
         "technique": "Dệt vảy cá đan cài nhịp nhàng",
-        "philosophyVi": "Con cá tung tăng dưới dòng suối Ia Mơ Nông là biểu tượng của nguồn nước mát lành và sự sinh sôi vô tận của đất mẹ Tây Nguyên.",
-        "meaningVi": "Cầu chúc cho dòng suối buôn làng không bao giờ cạn, tôm cá đầy giỏ, cuộc sống ấm no và tươi vui quanh năm.",
-        "meaningEn": "Symbols of pure cascading mountain streams, fertility, and continuous plenty.",
+        "philosophyVi": "Gắn liền với các dòng suối mát lành và lưu vực sông Ba – nơi cung cấp nước ngọt và nguồn sinh kế nuôi dưỡng đồng bào Jrai. Thể hiện sự trân trọng mẹ thiên nhiên và ước mơ cuộc sống đủ đầy.",
+        "meaningVi": "Biểu tượng của nguồn sống trù phú, sự bình yên và sinh sôi nảy nở quanh dòng suối buôn làng.",
+        "meaningEn": "Symbol of pure mountain streams, fertility, and continuous plenty from mother nature.",
         "colors": ["Xanh suối", "Trắng bạc", "Đỏ thẫm"],
         "artisanVerification": "Nghệ nhân Rơ châm Krế (35 năm tuổi nghề)",
         "village": "Làng Phung, xã Ia Mơ Nông, Gia Lai",
@@ -342,15 +351,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-007",
         "motif_code": "JRAI-007",
-        "nameJrai": "Cây Tre & Lũy Tre",
-        "nameVi": "Hoa Văn Cây Tre — Bền Bỉ & Che Chở Buôn Làng",
-        "nameEn": "Sacred Bamboo Grove — Resilience & Village Shelter",
+        "nameJrai": "Tneh (Cây Tre)",
+        "nameVi": "Hoa Văn Cây Tre (Tneh) — Dấu Nối Tâm Linh & Sức Sống Dẻo Dai",
+        "nameEn": "Sacred Bamboo Grove — Spiritual Continuity & Resilience",
         "theme": "nature",
         "themeNameVi": "Thiên nhiên & Nông nghiệp",
         "technique": "Dệt sọc đứng phân tầng mô phỏng đốt tre",
-        "philosophyVi": "Cây tre uốn mình theo bão giông nhưng không bao giờ gãy. Lũy tre quanh làng che chở ngôi nhà sàn và nếp dệt truyền đời của phụ nữ Jrai.",
-        "meaningVi": "Tượng trưng cho sự kiên cường, dẻo dai trước mọi khó khăn thử thách của núi rừng đại ngàn.",
-        "meaningEn": "Enduring highland resilience and communal protection against wild storms.",
+        "philosophyVi": "Cách điệu từ hình dáng của cây nêu – linh vật kết từ tre nứa trong lễ hội lớn. Cây tre phản ánh mối quan hệ mật thiết giữa con người với núi rừng và sức sống bền bỉ không khuất phục trước bão giông.",
+        "meaningVi": "Gắn liền với linh vật cây nêu và triết lý vạn vật hữu linh (Yang Kơtơp), tượng trưng cho sự dẻo dai và kiên cường.",
+        "meaningEn": "Enduring highland resilience and spiritual connection through ceremonial bamboo poles.",
         "colors": ["Xanh lục", "Vàng tre", "Đen chàm"],
         "artisanVerification": "Nghệ nhân Rơ châm Nghị (30 năm tuổi nghề)",
         "village": "Làng Kép, xã Ia Mơ Nông, Gia Lai",
@@ -361,16 +370,16 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-008",
         "motif_code": "JRAI-008",
-        "nameJrai": "Cây Cỏ Núi Rừng",
-        "nameVi": "Hoa Văn Cây Cỏ Núi Rừng — Mầm Xanh Đại Ngàn",
+        "nameJrai": "K’toanh & Kdăk (Cây Cỏ Núi Rừng)",
+        "nameVi": "Hoa Văn Cây Cỏ Núi Rừng — Mầm Xanh Tái Sinh & Bản Sắc Sắc Màu",
         "nameEn": "Wild Forest Herbs Motif — Highland Vitality",
         "theme": "nature",
         "themeNameVi": "Thiên nhiên & Nông nghiệp",
         "technique": "Dệt mầm nhọn tỏa tia mềm mại",
-        "philosophyVi": "Mầm cỏ sau cơn mưa đầu mùa phủ xanh đất đỏ bazan, mang đến nhựa sống và thảo mộc chữa lành cho dân làng.",
-        "meaningVi": "Sinh lực tràn đầy, khả năng thích ứng linh hoạt và sự tái sinh mạnh mẽ của tự nhiên.",
-        "meaningEn": "Verdant renewal and medicinal blessings of the wild highland flora.",
-        "colors": ["Xanh non", "Vàng rơm", "Đỏ đất"],
+        "philosophyVi": "Mô phỏng lá dương xỉ (k’toanh), cây (tneh), quả (kdăk). Tượng trưng cho sức sống bền bỉ của đại ngàn. Nền đen là quyền lực núi rừng; đỏ và trắng là khát vọng sống và lòng dũng cảm; vàng là ánh sáng và ấm no.",
+        "meaningVi": "Sức sống mãnh liệt của thiên nhiên nương rẫy, sự hòa quyện giữa đất trời bazan và lòng biết ơn đại ngàn.",
+        "meaningEn": "Verdant renewal and botanical blessings of native highland flora.",
+        "colors": ["Xanh non", "Vàng rơm", "Đỏ đất", "Đen mun"],
         "artisanVerification": "Nghệ nhân Rơ Châm Mril (25 năm tuổi nghề)",
         "village": "Làng Kép, xã Ia Mơ Nông, Gia Lai",
         "appliedProducts": [],
@@ -380,15 +389,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-009",
         "motif_code": "JRAI-009",
-        "nameJrai": "Chậu Hoa",
-        "nameVi": "Hoa Văn Chậu Hoa — Ươm Mầm Tình Yêu & Sự Sống",
+        "nameJrai": "Chậu Hoa Rừng",
+        "nameVi": "Hoa Văn Chậu Hoa — Ươm Mầm Sinh Sôi & Vẻ Đẹp Đời Sống",
         "nameEn": "Blooming Flower Pot Motif — Nurturing Love",
         "theme": "life",
         "themeNameVi": "Đời sống & Con người",
         "technique": "Dệt cánh hoa mở rộng trên giá đỡ đối xứng",
-        "philosophyVi": "Bông hoa được vun trồng bên bậc cầu thang nhà sàn thể hiện tình yêu cái đẹp và sự chăm chút khéo léo của người phụ nữ mẫu hệ.",
-        "meaningVi": "Ươm mầm hạnh phúc lứa đôi, gia đình sum vầy và không gian sống chan hòa yêu thương.",
-        "meaningEn": "Cultivating domestic joy, floral elegance, and familial harmony.",
+        "philosophyVi": "Biểu tượng của sự sinh sôi và sức sống tươi đẹp của núi rừng Tây Nguyên. Gửi gắm ước vọng về cây trái đơm hoa kết trái, buôn làng phát triển và bàn tay khéo léo vun vén của người phụ nữ mẫu hệ.",
+        "meaningVi": "Tượng trưng cho sự chăm chút, vun trồng tình yêu thương và khát vọng cuộc sống tốt tươi, no đủ.",
+        "meaningEn": "Cultivating domestic joy, floral elegance, and harmonious living in the highlands.",
         "colors": ["Đỏ hoa", "Vàng nhụy", "Xanh đài"],
         "artisanVerification": "Nghệ nhân H' Uyên Niê (20 năm tuổi nghề)",
         "village": "Xã Ia Mơ Nông, huyện Chư Păh, Gia Lai",
@@ -399,15 +408,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-010",
         "motif_code": "JRAI-010",
-        "nameJrai": "Ghè Rượu Cần",
-        "nameVi": "Hoa Văn Ghè Cổ — Lễ Hội & Tình Thân Buôn Làng",
-        "nameEn": "Ceremonial Wine Jar Motif — Unity & Festivity",
+        "nameJrai": "Ceh (Ghè Rượu Cổ)",
+        "nameVi": "Hoa Văn Ghè Cổ (Ceh) — Nơi Trú Ngụ Của Yàng & Gắn Kết Cộng Đồng",
+        "nameEn": "Ancient Wine Jar Motif — Abode of Yang & Communal Unity",
         "theme": "ritual",
         "themeNameVi": "Tín ngưỡng & Lễ hội",
         "technique": "Dệt khối bầu ghè nổi với hoa văn quấn quanh cổ ghè",
-        "philosophyVi": "Ghè rượu cần quý là báu vật truyền đời của gia đình mẫu hệ. Mỗi dịp lễ hội, cần rượu cắm chung là biểu tượng của sự sẻ chia, đoàn kết không rời.",
-        "meaningVi": "Tình bạn bè buôn làng khăng khít, lòng hiếu khách và không khí lễ hội tưng bừng quanh bếp lửa.",
-        "meaningEn": "Sacred communal gatherings, unconditional hospitality, and shared blessings.",
+        "philosophyVi": "Ghè cổ là báu vật thiêng liêng, nơi ẩn chứa và ngự trị của các Yang. Ngày xưa ghè quý đổi bằng nhiều con trâu, khẳng định vị thế dòng họ. Vò rượu cần là trung tâm gắn kết sum vầy và lòng hiếu khách của người Jrai.",
+        "meaningVi": "Biểu tượng tâm linh thiêng liêng của Yang, sự sung túc và tình đoàn kết gắn bó keo sơn trong buôn làng.",
+        "meaningEn": "Sacred communal gatherings, ancestral wealth, hospitality, and shared blessings around the wine jar.",
         "colors": ["Nâu gốm", "Đỏ rượu", "Vàng đồng"],
         "artisanVerification": "Nghệ nhân Rơ Châm Monh (26 năm tuổi nghề)",
         "village": "Làng Kép, xã Ia Mơ Nông, Gia Lai",
@@ -418,15 +427,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-011",
         "motif_code": "JRAI-011",
-        "nameJrai": "Giã Gạo",
-        "nameVi": "Hoa Văn Giã Gạo Ban Mai — Bàn Tay Người Mẹ Jrai",
-        "nameEn": "Mortar Rice Pounding Motif — Maternal Care",
+        "nameJrai": "Giã Gạo Ban Mai",
+        "nameVi": "Hoa Văn Giã Gạo Ban Mai — Nhịp Lao Động & Âm Thanh No Ấm",
+        "nameEn": "Morning Rice Pounding Motif — Rhythm of Abundance",
         "theme": "life",
         "themeNameVi": "Đời sống & Con người",
         "technique": "Dệt nhịp chày đôi đối xứng nhịp nhàng",
-        "philosophyVi": "Tiếng chày giã gạo rộn rã trong sương sớm là âm thanh bình yên của no ấm, gắn liền với hình bóng người mẹ cần mẫn nuôi nấng đàn con.",
-        "meaningVi": "Tôn vinh đức tính siêng năng, sự chịu thương chịu khó và bàn tay ấm áp của người phụ nữ Tây Nguyên.",
-        "meaningEn": "Celebrating maternal devotion, industrious morning labor, and domestic nourishment.",
+        "philosophyVi": "Tái hiện nhịp lao động cần cù mỗi sớm mai. Tiếng chày giã gạo vang lên giữa đại ngàn là âm thanh của sự sống, tượng trưng cho mùa màng bội thu, sự thịnh vượng và bàn tay người mẹ chăm lo cho gia đình.",
+        "meaningVi": "Tôn vinh đức tính siêng năng, sự chịu thương chịu khó của phụ nữ Jrai và ước vọng ấm no bền lâu.",
+        "meaningEn": "Celebrating industrious morning labor, maternal care, and the nourishing heartbeat of the village.",
         "colors": ["Đen chàm", "Đỏ gạch", "Trắng ngà"],
         "artisanVerification": "Nghệ nhân Rơ Châm Cơm (32 năm tuổi nghề)",
         "village": "Làng Phung, xã Ia Mơ Nông, Gia Lai",
@@ -437,15 +446,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-012",
         "motif_code": "JRAI-012",
-        "nameJrai": "Gánh Buôn",
-        "nameVi": "Hoa Văn Gánh Buôn — Chăm Chỉ & Gắn Kết Sinh Kế",
-        "nameEn": "Highland Carrier Basket Motif — Commerce & Livelihood",
+        "nameJrai": "Gùi Nương (Gánh Buôn)",
+        "nameVi": "Hoa Văn Gánh Buôn — Cần Mẫn Vun Đắp Sinh Kế Buôn Làng",
+        "nameEn": "Carrier Basket Motif — Diligence & Sustainable Livelihood",
         "theme": "life",
         "themeNameVi": "Đời sống & Con người",
         "technique": "Dệt gùi mang lưng và đòn gánh bước đi",
-        "philosophyVi": "Chiếc gùi sau lưng đưa hạt lúa, bó rau qua dốc đèo, kết nối sản vật buôn làng với chợ phiên vùng xa.",
-        "meaningVi": "Tinh thần tự lực, cần cù kiến tạo sinh kế và mang lại ấm no cho gia đình buôn làng.",
-        "meaningEn": "Diligence, resilient footsteps, and building sustainable communal livelihoods.",
+        "philosophyVi": "Mô phỏng hình ảnh chiếc gùi sau lưng và bước chân người phụ nữ vượt đèo dốc lên rẫy, mang sản vật về nuôi sống gia đình. Thể hiện sự cần cù, dẻo dai và tinh thần tự lực kiến tạo cuộc sống.",
+        "meaningVi": "Biểu tượng của sự chịu thương chịu khó, tinh thần tự cường và khát vọng kiến tạo sinh kế no đủ.",
+        "meaningEn": "Diligence, steadfast highland steps, and building resilient livelihoods across mountain paths.",
         "colors": ["Vàng đất", "Xanh rêu", "Nâu sẫm"],
         "artisanVerification": "Nghệ nhân Rơ Châm Monh (26 năm tuổi nghề)",
         "village": "Làng Kép, xã Ia Mơ Nông, Gia Lai",
@@ -456,15 +465,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-013",
         "motif_code": "JRAI-013",
-        "nameJrai": "Dấu Xưa Di Sản",
-        "nameVi": "Hoa Văn Dấu Xưa Di Sản — Ký Ức Cội Nguồn",
-        "nameEn": "Ancient Heritage Mark Motif — Ancestral Memory",
+        "nameJrai": "Dấu Xưa Di Sản (Mơ Nga Plum)",
+        "nameVi": "Hoa Văn Dấu Xưa Di Sản — Ký Ức Cội Nguồn & Luật Tục Truyền Thừa",
+        "nameEn": "Ancient Heritage Mark Motif — Ancestral Memory & Sacred Lore",
         "theme": "ritual",
         "themeNameVi": "Tín ngưỡng & Lễ hội",
         "technique": "Dệt ký hiệu cổ truyền mẫu hệ",
-        "philosophyVi": "Mỗi đường nét là mật mã văn hóa mà người bà, người mẹ truyền lại bên khung cửi hông từ ngàn đời.",
-        "meaningVi": "Ghi nhớ công đức tổ tiên, bảo tồn gốc rễ bản sắc của người Jrai không bao giờ phai nhạt.",
-        "meaningEn": "Ancestral remembrance and preserving the eternal identity of Jrai heritage.",
+        "philosophyVi": "Hệ thống biểu tượng ước lệ cao (cây Mơ nga Plum, cây Kơ chép Brom). Triết lý vạn vật hữu linh (Yang Kơtơp), tuân thủ nghiêm ngặt các quy tắc kiêng kỵ (như cấm dệt mẫu cây Ana Kđa cho người sống). Mỗi đường chỉ là cuốn sách lưu giữ ký ức cộng đồng.",
+        "meaningVi": "Gìn giữ bản sắc cội nguồn, tri thức thủ công mẫu hệ và lòng biết ơn đối với các thế hệ tổ tiên đi trước.",
+        "meaningEn": "Sacred ancestral memory, strict cultural ethics, and preserving unbroken indigenous identity.",
         "colors": ["Đỏ thẫm", "Vàng nghệ", "Đen mun"],
         "artisanVerification": "Nghệ nhân Rơ Châm Cơm (32 năm tuổi nghề)",
         "village": "Làng Phung, xã Ia Mơ Nông, Gia Lai",
@@ -475,15 +484,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-014",
         "motif_code": "JRAI-014",
-        "nameJrai": "Sinh Hoạt Buôn Làng",
-        "nameVi": "Hoa Văn Sinh Hoạt Buôn Làng — Nhịp Sống Dưới Mái Nhà Rông",
+        "nameJrai": "Mơ Nuih (Sinh Hoạt Buôn Làng)",
+        "nameVi": "Hoa Văn Sinh Hoạt Buôn Làng — Nhịp Sống Dung Dị & Tình Cộng Đồng",
         "nameEn": "Communal Village Life Motif — Rhythm Under Nha Rong",
         "theme": "life",
         "themeNameVi": "Đời sống & Con người",
         "technique": "Dệt đại cảnh người múa xoang, đánh chiêng, dệt vải",
-        "philosophyVi": "Bức tranh toàn cảnh về đời sống sinh hoạt giàu bản sắc, nơi con người sống hòa quyện cùng thiên nhiên và tiếng cồng chiêng vang vọng.",
-        "meaningVi": "Tình đoàn kết cộng đồng, niềm tự hào về làng nghề truyền thống và niềm vui sum vầy.",
-        "meaningEn": "Communal cohesion, Gong heritage pride, and harmonious village celebration.",
+        "philosophyVi": "Mô-típ hình người (mơ nuih) và mái nhà rông, nhà sàn mô tả nhịp sống dung dị, tinh thần đoàn kết sẻ chia giữa các thành viên buôn làng. Tấm thổ cẩm là minh chứng cho sự kiên trì và tâm hồn phong phú của người phụ nữ Jrai.",
+        "meaningVi": "Sự hòa quyện giữa con người, thiên nhiên và tín ngưỡng; tôn vinh sức mạnh gắn kết của cộng đồng buôn làng.",
+        "meaningEn": "Communal solidarity, Gong heritage pride, and harmonious village celebration under the stilt roof.",
         "colors": ["Đỏ cờ", "Vàng nắng", "Xanh chàm", "Trắng"],
         "artisanVerification": "Nghệ nhân Rơ Châm Mân (16 năm tuổi nghề)",
         "village": "Làng Kép, xã Ia Mơ Nông, Gia Lai",
@@ -494,15 +503,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-015",
         "motif_code": "JRAI-015",
-        "nameJrai": "Mẹ Và Chị",
-        "nameVi": "Hoa Văn Mẹ Và Chị — Tình Thân Mẫu Hệ Truyền Thừa",
+        "nameJrai": "Mẹ Và Chị Mẫu Hệ",
+        "nameVi": "Hoa Văn Mẹ Và Chị — Ngọn Lửa Mẫu Hệ & Bàn Tay Trao Truyền",
         "nameEn": "Mother & Sister Motif — Matrilineal Kinship",
         "theme": "life",
         "themeNameVi": "Đời sống & Con người",
         "technique": "Dệt hai thế hệ phụ nữ song hành nắm tay",
-        "philosophyVi": "Chế độ mẫu hệ Jrai trao truyền ngọn lửa giữ nghề từ mẹ sang con gái, từ chị sang em bên bếp lửa nhà sàn.",
-        "meaningVi": "Tình mẫu tử thiêng liêng, lòng hiếu thuận và sự tiếp nối bền bỉ của thế hệ trẻ hôm nay.",
-        "meaningEn": "Unbreakable matrilineal bond, generational mentorship, and honoring womanhood.",
+        "philosophyVi": "Nghề dệt thổ cẩm là công việc thiêng liêng gắn liền với phụ nữ Jrai theo truyền thống mẫu hệ. Từ nhỏ bé gái đã được bà, mẹ và chị kèm cặp se sợi, nhuộm lá rừng và cài hoa văn. Tấm vải là thước đo sự đảm đang, kiên nhẫn và tình thân gia đình.",
+        "meaningVi": "Biểu tượng của tình mẫu tử, sự trao truyền nghề nghiệp và ngọn lửa gìn giữ văn hóa gia đình mẫu hệ.",
+        "meaningEn": "Matrilineal bond, generational mentorship, and honoring highland women as cultural guardians.",
         "colors": ["Hồng đất", "Đỏ thẫm", "Vàng ngà"],
         "artisanVerification": "Nghệ nhân H' Uyên Niê (20 năm tuổi nghề)",
         "village": "Xã Ia Mơ Nông, huyện Chư Păh, Gia Lai",
@@ -514,14 +523,14 @@ MOTIFS_DATA = [
         "id": "motif-jrai-016",
         "motif_code": "JRAI-016",
         "nameJrai": "Người Làm Rẫy",
-        "nameVi": "Hoa Văn Người Làm Rẫy — Giọt Mồ Hôi Trên Đất Đỏ",
+        "nameVi": "Hoa Văn Người Làm Rẫy — Nương Rẫy Đại Ngàn & Mồ Hôi Đất Mẹ",
         "nameEn": "Highland Farmer Motif — Sweat on Bazan Soil",
         "theme": "life",
         "themeNameVi": "Đời sống & Con người",
         "technique": "Dệt dáng hình người cuốc đất, tra hạt giống",
-        "philosophyVi": "Mỗi hạt thóc, bắp ngô thu hoạch là giọt mồ hôi của người nông dân kiên cường bám đất bám làng trên nương rẫy bazan màu mỡ.",
-        "meaningVi": "Tôn vinh giá trị lao động chân chính và sự gắn bó bền chặt giữa con người với đất mẹ quê hương.",
-        "meaningEn": "Revering honest labor and the spiritual bond between farmers and fertile bazan soil.",
+        "philosophyVi": "Trong không gian nương rẫy nông nghiệp, các đường ziczac (sóng nước, dốc nương) và hạt giống phản ánh nhịp sống lao động vất vả nhưng tràn ngập niềm vui. Đó là lời tri ân đối với thần linh, đất trời và thành quả của giọt mồ hôi chân chính.",
+        "meaningVi": "Tôn vinh giá trị lao động cần lao, sức bền bỉ kiên cường trước thiên nhiên và sự gắn bó với đất mẹ Tây Nguyên.",
+        "meaningEn": "Honoring honest toil and the spiritual bond between upland farmers and fertile volcanic soil.",
         "colors": ["Nâu bazan", "Đỏ đất", "Xanh mầm"],
         "artisanVerification": "Nghệ nhân Rơ châm Nghị (30 năm tuổi nghề)",
         "village": "Làng Kép, xã Ia Mơ Nông, Gia Lai",
@@ -532,15 +541,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-017",
         "motif_code": "JRAI-017",
-        "nameJrai": "Đám Trẻ Thơ",
-        "nameVi": "Hoa Văn Đám Trẻ Thơ — Hồn Nhiên Đại Ngàn",
-        "nameEn": "Village Children Motif — Highland Innocence",
+        "nameJrai": "Đám Trẻ Thơ (Mơ Nuih)",
+        "nameVi": "Hoa Văn Đám Trẻ Thơ — Ước Vọng Phồn Thực & Kế Thừa Di Sản",
+        "nameEn": "Village Children Motif — Highland Innocence & Continuity",
         "theme": "life",
         "themeNameVi": "Đời sống & Con người",
         "technique": "Dệt nhóm trẻ con vui đùa nhí nhảnh",
-        "philosophyVi": "Nụ cười trong veo của trẻ thơ Jrai chạy nhảy dưới bóng cây Kơ-nia là niềm hy vọng về một tương lai tươi sáng của buôn làng.",
-        "meaningVi": "Ước nguyện cho thế hệ con cháu khỏe mạnh, lớn khôn trong sự yêu thương và học hành thành đạt.",
-        "meaningEn": "Pure joy of childhood, future hopes, and blessing the next generation.",
+        "philosophyVi": "Chế độ mẫu hệ đặt niềm hy vọng vào thế hệ tiếp nối. Tiếng cười trẻ thơ bên hiên nhà sàn là minh chứng cho buôn làng ấm no. Nhắc nhở trách nhiệm trao truyền lại những giá trị văn hóa cốt lõi cho những người sẽ làm chủ buôn làng mai sau.",
+        "meaningVi": "Biểu tượng của sự trường tồn dòng họ mẫu hệ, sự bình yên của buôn làng và niềm hy vọng vào tương lai tươi sáng.",
+        "meaningEn": "Auspicious symbol of matrilineal continuity, joyous highland childhood, and cultural succession.",
         "colors": ["Vàng tươi", "Đỏ cam", "Xanh da trời"],
         "artisanVerification": "Nghệ nhân Rơ Châm Cơm (32 năm tuổi nghề)",
         "village": "Làng Phung, xã Ia Mơ Nông, Gia Lai",
@@ -551,15 +560,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-018",
         "motif_code": "JRAI-018",
-        "nameJrai": "Đôi Lứa",
-        "nameVi": "Hoa Văn Đôi Lứa — Thủy Chung Son Sắt",
-        "nameEn": "Devoted Couple Motif — Eternal Fidelity",
+        "nameJrai": "Đôi Lứa Thủy Chung",
+        "nameVi": "Hoa Văn Đôi Lứa — Thủy Chung Son Sắt & Giao Hòa Hai Dòng Họ",
+        "nameEn": "Devoted Couple Motif — Eternal Fidelity & Kinship",
         "theme": "life",
         "themeNameVi": "Đời sống & Con người",
         "technique": "Dệt hai nhân vật nam nữ đối xứng qua nhành hoa",
-        "philosophyVi": "Tình yêu mộc mạc mà son sắt của chàng trai cô gái Jrai được dệt vào tấm chăn, tấm váy cưới chúc phúc trăm năm hạnh phúc.",
-        "meaningVi": "Tình duyên bền chặt, sự thấu hiểu và gắn bó trọn đời của vợ chồng bên mái nhà dài.",
-        "meaningEn": "Faithful devotion, marital bliss, and enduring partnership.",
+        "philosophyVi": "Tình yêu nam nữ gắn kết keo sơn như những sợi chỉ đan khít vào nhau trên khung cửi. Trong chế độ mẫu hệ, hôn nhân là sự giao hòa, gắn kết giữa hai dòng họ và buôn làng. Thước đo sự tinh tế, đảm đang của người phụ nữ dệt tấm váy cưới.",
+        "meaningVi": "Biểu tượng tình yêu thủy chung, sự hòa hợp gia đình và sự kết nối bền chặt giữa các gia tộc trong cộng đồng.",
+        "meaningEn": "Enduring fidelity, marital harmony, and matrilineal kinship solidarity across generations.",
         "colors": ["Hồng đào", "Đỏ thắm", "Vàng mật"],
         "artisanVerification": "Nghệ nhân Rơ Châm Mril (25 năm tuổi nghề)",
         "village": "Làng Kép, xã Ia Mơ Nông, Gia Lai",
@@ -571,14 +580,14 @@ MOTIFS_DATA = [
         "id": "motif-jrai-019",
         "motif_code": "JRAI-019",
         "nameJrai": "Khát Vọng Vươn Xa",
-        "nameVi": "Hoa Văn Khát Vọng Vươn Xa — Chắp Cánh Tương Lai",
+        "nameVi": "Hoa Văn Khát Vọng Vươn Xa — Sức Sống Vươn Lên & Hội Nhập Tương Lai",
         "nameEn": "Highland Aspirations Motif — Wings of the Future",
         "theme": "life",
         "themeNameVi": "Đời sống & Con người",
         "technique": "Dệt dải sao sáng và chim lượn vút lên trời cao",
-        "philosophyVi": "Khát vọng số hóa và đưa thổ cẩm Jrai từ buôn làng Chư Păh bay xa ra toàn quốc và thế giới của nhóm sinh viên UEL và bà con Ia Mơ Nông.",
-        "meaningVi": "Ý chí vươn lên, đổi mới sáng tạo trên nền tảng gìn giữ bản sắc văn hóa di sản.",
-        "meaningEn": "Empowering youth, cultural innovation, and global outreach from native roots.",
+        "philosophyVi": "Các họa tiết vươn lên cao tượng trưng cho sức sống mạnh mẽ của đại ngàn, ý chí vượt khó vươn tới ấm no. Trong thời đại mới, đây là tinh thần đưa thổ cẩm và sản vật địa phương vươn xa ra thị trường toàn quốc và quốc tế.",
+        "meaningVi": "Ý chí kiên cường, khát vọng đưa di sản buôn làng bay cao mà vẫn vững vàng giữ trọn cội nguồn bản sắc.",
+        "meaningEn": "Empowering youth, indigenous innovation, and taking traditional craftsmanship to global horizons.",
         "colors": ["Vàng kim", "Đỏ bazan", "Trắng tinh khôi"],
         "artisanVerification": "Nghệ nhân Rơ châm Nghel (36 năm cống hiến)",
         "village": "Làng Kép, xã Ia Mơ Nông, Gia Lai",
@@ -589,15 +598,15 @@ MOTIFS_DATA = [
     {
         "id": "motif-jrai-020",
         "motif_code": "JRAI-020",
-        "nameJrai": "Máy Bay Hiện Đại",
-        "nameVi": "Hoa Văn Máy Bay — Giao Thoa Đương Đại",
-        "nameEn": "Contemporary Airplane Motif — Modern Skies",
+        "nameJrai": "Xe Bay (Máy Bay)",
+        "nameVi": "Hoa Văn Máy Bay — Giao Thoa Đương Đại & Thế Giới Quan Mới",
+        "nameEn": "Contemporary Airplane Motif — Modern Skies & Innovation",
         "theme": "life",
         "themeNameVi": "Đời sống & Con người",
         "technique": "Dệt cách điệu cánh máy bay bay qua ngọn núi",
-        "philosophyVi": "Người nghệ nhân Jrai nhìn lên bầu trời ngắm những chuyến bay mang khách bốn phương về thăm Gia Lai, đưa hình ảnh đó vào nếp cửi truyền thống.",
-        "meaningVi": "Sự giao thoa giữa truyền thống và hiện đại, mở rộng cánh cửa hội nhập văn hóa quốc tế.",
-        "meaningEn": "Harmonious fusion of ancient handloom craft with modern aviation horizons.",
+        "philosophyVi": "Sự sáng tạo độc đáo khi người nghệ nhân Jrai 'dệt những gì họ thấy và thích'. Cách điệu phương tiện hiện đại thành hoa văn đối xứng hài hòa trên nền vải chàm thể hiện tay nghề bậc thầy và ước vọng kết nối với thế giới bên ngoài.",
+        "meaningVi": "Biểu tượng cho sự đổi mới, tinh thần cởi mở tiếp nhận nhịp sống hiện đại mà không đánh mất bản sắc cổ truyền.",
+        "meaningEn": "Harmonious fusion of ancient handloom craft with contemporary aviation, connecting highlands to the world.",
         "colors": ["Xanh da trời", "Bạc", "Đỏ cờ"],
         "artisanVerification": "Nghệ nhân H' Uyên Niê (20 năm tuổi nghề)",
         "village": "Xã Ia Mơ Nông, Chư Păh, Gia Lai",
@@ -607,12 +616,83 @@ MOTIFS_DATA = [
     }
 ]
 
+# Enrich BASE_MOTIFS with DOC_MOTIFS research data
+MOTIFS_DATA = []
+for m in BASE_MOTIFS:
+    m_id = m['id']
+    doc_info = DOC_MOTIFS.get(m_id, {})
+    m_enriched = dict(m)
+    m_enriched['researchOverview'] = doc_info.get('overview', '')
+    m_enriched['researchBullets'] = doc_info.get('bullets', [])
+    m_enriched['researchFullText'] = doc_info.get('full_text', '')
+    MOTIFS_DATA.append(m_enriched)
+
 MOTIF_MAP_BY_ID = {m['id']: m for m in MOTIFS_DATA}
 
 # ==============================================================================
-# 3. DANH SÁCH 57 SẢN PHẨM KHỚP VỚI DATABASE
+# 3. DANH SÁCH 57 SẢN PHẨM KHỚP VỚI DATABASE & GÁN CÂU CHUYỆN TỪ DOCX
 # ==============================================================================
-# (src_folder, src_file, code, nameVi, nameEn, cat_key, cat_nameVi, cat_nameEn, price, min_days, max_days, artisan_key, motif_id, dims, mat_vi, mat_en)
+# Bảng ánh xạ sản phẩm sang câu chuyện (Story ID 1-20)
+PRODUCT_TO_STORY_MAP = {
+    'B001': 4,   # DẤU XƯA CÒN MÃI – DI SẢN TIẾP NỐI (Rơ Châm Cơm & Bầu nước)
+    'V001': 5,   # HOA VĂN ĐÔI LỨA – SỢI CHỈ DỆT NÊN TÌNH YÊU VÀ SỰ GẮN KẾT (Rơ Châm Mril)
+    'V002': 17,  # KHĂN THỔ CẨM JRAI – DỆT NHỊP SỐNG, NỐI DÀI NHỮNG CHÂN TRỜI (Rơ Châm Mril)
+    'A001': 3,   # TỪ ĐẠI NGÀN VƯƠN RA THẾ GIỚI (Rơ Châm Krế)
+    'A002': 3,   # TỪ ĐẠI NGÀN VƯƠN RA THẾ GIỚI (Rơ Châm Krế)
+    'TT001': 6,  # TỪ BÀN TAY MẸ VÀ CHỊ – DỆT NÊN HỒN CỐT ĐẠI NGÀN (Rơ Châm Krế)
+    'TT002': 15, # TỪ BUÔN LÀNG ĐẾN NHỮNG CHÂN TRỜI MỚI (Rơ Châm Krế)
+    'TT003': 3,  # TỪ ĐẠI NGÀN VƯƠN RA THẾ GIỚI (Rơ Châm Krế)
+    'TD001': 1,  # NHỮNG ĐƯỜNG NÉT KỂ CHUYỆN ĐẠI NGÀN (Rơ Châm Mân & Giã gạo)
+    'TD002': 19, # RƠ CHÂM NGHEL – Nhịp sống buôn làng (Bông lúa mùa vàng)
+    'TD003': 13, # NHỊP SỐNG BUÔN LÀNG – Ghè rượu cần & Cà phê
+    'TD004': 19, # RƠ CHÂM NGHEL – Nhịp sống buôn làng & Cây tre
+    'TD005': 1,  # NHỮNG ĐƯỜNG NÉT KỂ CHUYỆN ĐẠI NGÀN – Hình học cổ & Gốm
+    'VI001': 4,  # DẤU XƯA CÒN MÃI – DI SẢN TIẾP NỐI (Rơ Châm Cơm)
+    'VI002': 16, # TỪ TÌNH THÂN ĐẾN SỨC SỐNG ĐẠI NGÀN (Rơ Châm Cơm & Đám trẻ thơ)
+    'VI003': 16, # TỪ TÌNH THÂN ĐẾN SỨC SỐNG ĐẠI NGÀN (Rơ Châm Cơm & Chậu hoa)
+    'VI004': 7,  # Sắc hoa mào gà & Rơ Châm Nghị
+    'VI005': 18, # H’ UYÊN NIÊ – Con Gà Mơ-nơ̆ & Khát vọng vươn xa
+    'VI006': 9,  # TỪ NHỊP SỐNG ĐẠI NGÀN ĐẾN ƯỚC NGUYỆN BÌNH AN (Rơ Châm Nghị)
+    'VI007': 4,  # DẤU XƯA CÒN MÃI – DI SẢN TIẾP NỐI (Rơ Châm Cơm)
+    'C001': 13,  # NHỊP SỐNG BUÔN LÀNG QUA TỪNG ĐƯỜNG DỆT (Rơ Châm Monh)
+    'C002': 13,  # NHỊP SỐNG BUÔN LÀNG – Ghè rượu cần (Rơ Châm Monh)
+    'C003': 7,   # TỪ NHỊP SỐNG ĐẠI NGÀN (H' Uyên Niê & Lũy tre)
+    'C004': 13,  # NHỊP SỐNG BUÔN LÀNG – Đôi lứa thủy chung (Rơ Châm Monh)
+    'C005': 7,   # Người làm rẫy – Gửi công sức vào từng mùa vụ (Rơ Châm Nghị)
+    'C006': 2,   # KHĂN QUÀNG ĐẠI NGÀN – Kỹ thuật dệt Kơnech (Rơ Châm Krế)
+    'C007': 18,  # H' UYÊN NIÊ – Máy bay & Giao thoa hiện đại
+    'C008': 13,  # NHỊP SỐNG BUÔN LÀNG – Gánh buôn nương rẫy (Rơ Châm Monh)
+    'C009': 14,  # TỪ BÀN TAY MẸ VÀ CHỊ, DỆT NÊN SỨC SỐNG ĐẠI NGÀN (Rơ Châm Nghel)
+    'K001': 7,   # TỪ NHỊP SỐNG ĐẠI NGÀN – DỆT NÊN CÂU CHUYỆN NO ẤM (H’ Uyên Niê)
+    'K002': 9,   # KHĂN THỔ CẨM JRAI – TỪ NHỊP SỐNG ĐẠI NGÀN ĐẾN ƯỚC NGUYỆN BÌNH AN (Rơ Châm Nghị)
+    'K003': 18,  # H’ UYÊN NIÊ – Con Gà Mơ-nơ̆ – Biểu tượng khởi đầu (Rơ Châm Nghị / H' Uyên Niê)
+    'K004': 14,  # TỪ BÀN TAY MẸ VÀ CHỊ, DỆT NÊN SỨC SỐNG ĐẠI NGÀN (Rơ Châm Nghị)
+    'K005': 14,  # TỪ BÀN TAY MẸ VÀ CHỊ, DỆT NÊN SỨC SỐNG ĐẠI NGÀN (Rơ Châm Nghị)
+    'K006': 8,   # CÂY TRE ĐẠI NGÀN – DẤU NỐI TÂM LINH VÀ BẢN SẮC JRAI (Rơ Châm Nghị)
+    'K007': 11,  # DẤU ẤN TỔ TIÊN, SẮC HOA VÀ HƠI THỞ ĐẠI NGÀN (Rơ Châm Nghị)
+    'K008': 7,   # Sắc hoa mào gà – Sắc màu của niềm vui và hy vọng (Rơ Châm Nghị)
+    'K009': 20,  # RƠ CHÂM PHAIH – Nhịp sống bên dòng suối – Dệt nên ước vọng no ấm
+    'K010': 2,   # KHĂN QUÀNG ĐẠI NGÀN – Con cá suối (Rơ Châm Krế)
+    'K011': 6,   # TỪ BÀN TAY MẸ VÀ CHỊ – DỆT NÊN HỒN CỐT ĐẠI NGÀN (H' Uyên Niê)
+    'K012': 11,  # DẤU ẤN TỔ TIÊN, SẮC HOA VÀ HƠI THỞ ĐẠI NGÀN (Rơ Châm Nghị)
+    'K013': 9,   # TỪ NHỊP SỐNG ĐẠI NGÀN ĐẾN ƯỚC NGUYỆN BÌNH AN (Rơ Châm Nghị)
+    'K014': 10,  # CÂY NÊU YANG – GỬI ƯỚC NGUYỆN BÌNH AN VÀO TỪNG SỢI CHỈ (Rơ Châm Phaih)
+    'K015': 13,  # NHỊP SỐNG BUÔN LÀNG QUA TỪNG ĐƯỜNG DỆT (Rơ Châm Monh)
+    'K016': 8,   # CÂY TRE ĐẠI NGÀN – DẤU NỐI TÂM LINH VÀ BẢN SẮC JRAI (Rơ Châm Nghị)
+    'K017': 20,  # RƠ CHÂM PHAIH – Nhịp sống bên dòng suối & Đỏ lửa Bazan
+    'K018': 12,  # TỪ DÒNG SUỐI ĐẠI NGÀN ĐẾN NHỮNG CHÂN TRỜI MỚI (Rơ Châm Nghị / H' Uyên Niê)
+    'K019': 19,  # RƠ CHÂM NGHEL – Nhịp sống buôn làng & Mùa lúa chín
+    'K020': 13,  # NHỊP SỐNG BUÔN LÀNG – Dưới mái nhà rông (Rơ Châm Mân)
+    'K021': 13,  # NHỊP SỐNG BUÔN LÀNG – Ghè cổ rượu cần (Rơ Châm Monh)
+    'K022': 2,   # KHĂN QUÀNG ĐẠI NGÀN – Giã gạo ban mai (Rơ Châm Krế)
+    'K023': 16,  # TỪ TÌNH THÂN ĐẾN SỨC SỐNG ĐẠI NGÀN – Gánh buôn nương (Rơ Châm Cơm)
+    'K024': 17,  # DỆT NHỊP SỐNG, NỐI DÀI NHỮNG CHÂN TRỜI (Rơ Châm Mril)
+    'K025': 18,  # Chậu hoa may mắn & Khát vọng tương lai (H' Uyên Niê)
+    'K026': 18,  # Tiếng gà gáy sớm – Khởi đầu thuận lành (Rơ Châm Nghị)
+    'K027': 15,  # TỪ BUÔN LÀNG ĐẾN NHỮNG CHÂN TRỜI MỚI (Rơ Châm Krế / Rơ Châm Nghel)
+    'K028': 20,  # RƠ CHÂM PHAIH – Đôi lứa thủy chung & Nhịp sống dòng suối
+}
+
 RAW_ITEMS = [
     # 1. Bầu nước (1)
     ('Bầu nước', 'B001- Rơ châm Com -200k.jpg', 'B001', 'Bầu Nước Quấn Thổ Cẩm Jrai', 'Jrai Traditional Gourd Bottle', 'gourd', 'Bầu nước', 'Gourd Bottle', 200000, 3, 5, 'Rơ châm Com', 'motif-jrai-013', 'Cao 25cm, đường kính 14cm', 'Quả bầu khô tự nhiên quấn dải thổ cẩm dệt tay', 'Natural dried gourd wrapped with handwoven brocade band'),
@@ -696,7 +776,7 @@ final_products = []
 for item in RAW_ITEMS:
     src_folder, src_file, code, nameVi, nameEn, cat_key, cat_nameVi, cat_nameEn, price, min_days, max_days, artisan_key, motif_id, dims, mat_vi, mat_en = item
     
-    # 1. Determine clean destination image filename
+    # 1. Image path
     ext = os.path.splitext(src_file)[1].lower()
     if ext not in ['.jpg', '.jpeg', '.png']:
         ext = '.jpg'
@@ -704,7 +784,6 @@ for item in RAW_ITEMS:
     dst_img_path = os.path.join(DST_PRODUCTS_IMG, dst_img_name)
     src_img_path = os.path.join(SRC_DB, src_folder, src_file)
     
-    # Copy image
     if os.path.exists(src_img_path):
         shutil.copy2(src_img_path, dst_img_path)
     else:
@@ -722,7 +801,6 @@ for item in RAW_ITEMS:
     artisan_name = artisan_obj['name']
     artisan_village = artisan_obj['village']
     
-    # Append code to artisan productIds
     if code not in artisan_obj['productIds']:
         artisan_obj['productIds'].append(code)
         
@@ -733,6 +811,17 @@ for item in RAW_ITEMS:
         motif_obj['appliedProducts'].append(code)
         
     price_formatted = f'{price:,.0f} ₫'.replace(',', '.')
+    
+    # 5. Lookup Authentic Story from SERIES THỔ CẨM.docx
+    story_id = PRODUCT_TO_STORY_MAP.get(code, 1)
+    story_data = DOC_STORIES.get(story_id, DOC_STORIES[1])
+    
+    story_title = story_data['title']
+    story_lead = story_data['lead']
+    story_paragraphs = story_data['paragraphs']
+    
+    # Format full narrative story
+    full_narrative = f"{story_lead}\n\n" + "\n\n".join(story_paragraphs)
     
     prod_data = {
         "id": code,
@@ -755,8 +844,19 @@ for item in RAW_ITEMS:
         "materialEn": mat_en,
         "motifUsed": motif_name,
         "motifId": motif_id,
-        "storyVi": f"Tác phẩm {nameVi} được hoàn thiện qua {days} ngày dệt thủ công bởi {artisan_name} tại {artisan_village}. Sản phẩm lưu giữ trọn vẹn hoa văn di sản {motif_name}, mang hồn thiêng đại ngàn và ước vọng phát triển sinh kế bền vững.",
-        "storyEn": f"{nameEn} was crafted over {days} days of dedicated backstrap handweaving by master artisan {artisan_name} in {artisan_village}. It authentically bears the sacred {motif_name} motif.",
+        
+        # CÂU CHUYỆN SẢN PHẨM CHUẨN XÁC TỪ SERIES THỔ CẨM
+        "storyTitle": story_title,
+        "storyLead": story_lead,
+        "storyParagraphs": story_paragraphs,
+        "storyVi": full_narrative,
+        "storyExcerptVi": f"{story_lead[:160]}...",
+        "storyEn": f"Crafted over {days} days of dedicated backstrap handweaving by master artisan {artisan_name} in {artisan_village}. This piece preserves the authentic {motif_name} motif, weaving together highland natural lore, ancestral memories, and fair communal livelihood.",
+        
+        # Ý NGHĨA HOA VĂN TÍCH HỢP
+        "motifResearchOverview": motif_obj.get('researchOverview', ''),
+        "motifResearchBullets": motif_obj.get('researchBullets', []),
+        
         "impactVi": "Trực tiếp đóng góp 100% thù lao dệt công bằng cho nghệ nhân và Quỹ bảo tồn di sản dệt thổ cẩm Ia Mơ Nông.",
         "impactEn": "Directly supports fair living wages for indigenous artisans and the Ia Mo Nong Weaving Preservation Fund.",
         "image": rel_img_url,
@@ -766,13 +866,13 @@ for item in RAW_ITEMS:
     }
     final_products.append(prod_data)
 
-print(f'Processed {len(final_products)} products successfully!')
+print(f'Processed {len(final_products)} products with genuine docx stories successfully!')
 
-# 5. Write js/products-data.js
+# 6. Write js/products-data.js
 products_js_content = f'''/**
  * DỰ ÁN SVTHM2026: GIỮ MỘT NGHỀ - DỆT NÊN TƯƠNG LAI
  * Dữ liệu 57 Sản Phẩm Thổ Cẩm Đồng Bộ Toàn Diện Từ Database SVTHM 2026
- * Chuẩn hóa: Mã SP độc lập, Giá niêm yết, Số ngày dệt, Liên kết Nghệ nhân, Hoa văn khớp sản phẩm
+ * và Hồ Sơ Câu Chuyện Sản Phẩm "SERIES THỔ CẨM" (Ia Mơ Nông, Chư Păh, Gia Lai)
  */
 const PRODUCTS_DATA = {json.dumps(final_products, ensure_ascii=False, indent=2)};
 '''
@@ -781,7 +881,7 @@ with open(os.path.join(ROOT_DIR, 'js', 'products-data.js'), 'w', encoding='utf-8
     f.write(products_js_content)
 print('Updated js/products-data.js successfully!')
 
-# 6. Write js/artisans-data.js
+# 7. Write js/artisans-data.js
 artisans_js_content = f'''/**
  * DỰ ÁN SVTHM2026: GIỮ MỘT NGHỀ - DỆT NÊN TƯƠNG LAI
  * Dữ liệu 9 Nghệ Nhân Thổ Cẩm Làng Kép & Làng Phung, Xã Ia Mơ Nông, Huyện Chư Păh, Tỉnh Gia Lai
@@ -794,11 +894,11 @@ with open(os.path.join(ROOT_DIR, 'js', 'artisans-data.js'), 'w', encoding='utf-8
     f.write(artisans_js_content)
 print('Updated js/artisans-data.js successfully!')
 
-# 7. Write js/motifs-data.js
+# 8. Write js/motifs-data.js
 motifs_js_content = f'''/**
  * DỰ ÁN SVTHM2026: GIỮ MỘT NGHỀ - DỆT NÊN TƯƠNG LAI
  * Dữ liệu Ngân hàng số 20 Hoa Văn Thổ Cẩm Jrai (Digital Cultural Heritage Bank)
- * Đồng bộ chuẩn xác từ thực địa và Database SVTHM 2026
+ * Tích hợp toàn bộ hồ sơ giải mã ý nghĩa hoa văn & triết lý nhân sinh bản địa từ "SERIES THỔ CẨM"
  */
 const MOTIFS_DATA = {json.dumps(MOTIFS_DATA, ensure_ascii=False, indent=2)};
 '''
@@ -807,4 +907,4 @@ with open(os.path.join(ROOT_DIR, 'js', 'motifs-data.js'), 'w', encoding='utf-8')
     f.write(motifs_js_content)
 print('Updated js/motifs-data.js successfully!')
 
-print('ALL 3 DATA FILES SUCCESSFULLY BUILT AND SYNCHRONIZED!')
+print('ALL 3 DATA FILES SUCCESSFULLY BUILT AND ENRICHED WITH SERIES THỔ CẨM!')

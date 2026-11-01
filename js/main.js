@@ -451,6 +451,106 @@ function initProductDetailPage() {
           </ul>
         </div>
       </div>
+
+      <!-- PHẦN 2: HỒ SƠ CÂU CHUYỆN SẢN PHẨM — LỜI KỂ TỪ ĐẠI NGÀN (SERIES THỔ CẨM) -->
+      <div class="product-story-section">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+            <span style="background: rgba(217, 119, 6, 0.15); color: #B45309; font-size: 0.78rem; font-weight: 800; padding: 5px 14px; border-radius: var(--radius-full); text-transform: uppercase; letter-spacing: 0.5px;">
+              📖 HỒ SƠ CÂU CHUYỆN SẢN PHẨM • BẢN SẮC JRAI
+            </span>
+            <span style="font-size: 0.82rem; color: #8C827A; font-weight: 600;">
+              📍 Di sản Ia Mơ Nông, Chư Păh, Gia Lai
+            </span>
+          </div>
+
+          <h2 style="font-size: 1.65rem; font-weight: 900; color: #1F1D1B; margin-bottom: 16px; line-height: 1.35;">
+            ${product.storyTitle || 'Những Đường Nét Kể Chuyện Đại Ngàn'}
+          </h2>
+
+          ${product.storyLead ? `
+            <div class="product-story-lead-quote">
+              <p style="font-size: 1.05rem; font-weight: 600; color: var(--color-bazan-red); font-style: italic; line-height: 1.65; margin: 0;">
+                “${product.storyLead}”
+              </p>
+            </div>
+          ` : ''}
+
+          <div style="font-size: 0.98rem; color: #3A332C; line-height: 1.85;">
+            ${product.storyParagraphs && product.storyParagraphs.length ? 
+              product.storyParagraphs.map(p => {
+                if (p.endsWith(':') || (p.length < 75 && !p.endsWith('.') && !p.startsWith('“'))) {
+                  return `<div class="product-story-subheading">${p}</div>`;
+                }
+                return `<p class="product-story-paragraph">${p}</p>`;
+              }).join('') 
+              : `<p class="product-story-paragraph">${product.storyVi}</p>`}
+          </div>
+
+          <div style="background: rgba(168, 40, 43, 0.05); border: 1px dashed rgba(168, 40, 43, 0.35); border-radius: 12px; padding: 20px 24px; margin-top: 30px; display: flex; gap: 16px; align-items: center;">
+            <div style="font-size: 2.2rem; flex-shrink: 0;">🌿</div>
+            <div style="font-size: 0.9rem; color: #5D554D; line-height: 1.65;">
+              <strong style="color: var(--color-bazan-red);">Thông điệp bảo tồn di sản:</strong> Chúng tôi tin rằng, bảo tồn văn hóa không có nghĩa là giữ mọi thứ đứng yên trong quá khứ. Đó là hành trình gìn giữ cái gốc văn hóa Jrai, đồng thời tìm kiếm những cách thức phù hợp để di sản tiếp tục đồng hành cùng đời sống hiện đại, tôn trọng tri thức và tiếng nói của chính cộng đồng nghệ nhân.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHẦN 3: GIẢI MÃ TRI THỨC HOA VĂN DI SẢN TRÊN TÁC PHẨM (SERIES THỔ CẨM) -->
+      <div class="motif-research-section">
+        <div style="max-width: 900px; margin: 0 auto;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-bottom: 22px;">
+            <div>
+              <span style="background: rgba(2, 132, 199, 0.12); color: #0284C7; font-size: 0.78rem; font-weight: 800; padding: 5px 14px; border-radius: var(--radius-full); text-transform: uppercase;">
+                🔍 GIẢI MÃ HOA VĂN DI SẢN (P'NGA / RÚP)
+              </span>
+              <h3 style="font-size: 1.45rem; font-weight: 900; color: #1F1D1B; margin: 8px 0 0;">
+                ${product.motifUsed}
+              </h3>
+            </div>
+            <a href="motifs.html?motif=${product.motifId}" class="btn btn-sm btn-outline-dark">
+              Xem trong Ngân hàng số hoa văn →
+            </a>
+          </div>
+
+          ${motif && motif.researchOverview ? `
+            <div style="font-size: 0.96rem; line-height: 1.75; color: #3A332C; margin-bottom: 22px; background: #F8F5F0; padding: 18px 22px; border-radius: 10px; border-left: 4px solid #0284C7;">
+              <strong>Tổng quan di sản:</strong> ${motif.researchOverview}
+            </div>
+          ` : ''}
+
+          ${motif && motif.researchBullets && motif.researchBullets.length ? `
+            <div style="margin-bottom: 25px;">
+              <h4 style="font-size: 0.92rem; font-weight: 800; color: #B45309; text-transform: uppercase; margin-bottom: 14px; letter-spacing: 0.5px;">
+                CÁC TẦNG Ý NGHĨA BIỂU TRƯNG VĂN HÓA & TÂM LINH (NGHIÊN CỨU THỰC ĐỊA):
+              </h4>
+              <div style="display: grid; gap: 10px;">
+                ${motif.researchBullets.map(b => {
+                  const parts = b.split(':');
+                  if (parts.length > 1) {
+                    return `
+                      <div class="motif-bullet-card">
+                        <strong style="color: var(--color-bazan-red);">✦ ${parts[0]}:</strong>${parts.slice(1).join(':')}
+                      </div>
+                    `;
+                  }
+                  return `
+                    <div class="motif-bullet-card">
+                      ✦ ${b}
+                    </div>
+                  `;
+                }).join('')}
+              </div>
+            </div>
+          ` : ''}
+
+          <div style="display: flex; flex-wrap: wrap; gap: 16px; background: #FAF6F0; padding: 16px 20px; border-radius: 10px; font-size: 0.88rem; color: #5D554D; border: 1px solid #EBE3DA;">
+            <div><strong>Triết lý vũ trụ:</strong> ${motif ? motif.philosophyVi : 'Vạn vật hữu linh (Yang Kơtơp)'}</div>
+            <div><strong>Màu sắc truyền thống:</strong> ${motif && motif.colors ? motif.colors.join(', ') : 'Đỏ, Đen, Trắng, Vàng'}</div>
+            <div><strong>Nghệ nhân xác minh:</strong> ${motif ? motif.artisanVerification : product.artisanName}</div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- SẢN PHẨM LIÊN QUAN -->
@@ -640,6 +740,7 @@ function createProductCardHTML(p) {
         <h3 class="product-title">
           <a href="${fullDetailUrl}">${p.nameVi}</a>
         </h3>
+        ${p.storyTitle ? `<div style="font-size: 0.78rem; font-weight: 700; color: #B45309; margin: 4px 0 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;" title="${p.storyTitle}">📖 ${p.storyTitle}</div>` : ''}
         
         <a href="artisans.html?artisan=${p.artisanId}" class="product-artisan-link">
           👤 ${p.artisanName}
@@ -779,43 +880,103 @@ window.openMotifModal = function(id) {
   const backdrop = document.getElementById('global-modal-backdrop');
   if (!content || !backdrop) return;
 
+  // Find applied products for this motif
+  const appliedProds = typeof PRODUCTS_DATA !== 'undefined'
+    ? PRODUCTS_DATA.filter(p => p.motifId === m.id).slice(0, 10)
+    : [];
+
+  const bulletsHTML = m.researchBullets && m.researchBullets.length ? `
+    <div style="margin-bottom: 22px;">
+      <h4 style="font-size: 0.85rem; font-weight: 800; color: var(--color-amber-glow); text-transform: uppercase; margin-bottom: 12px; letter-spacing: 0.5px;">
+        Ý NGHĨA BIỂU TRƯNG & VĂN HÓA BẢN ĐỊA (HỒ SƠ SERIES THỔ CẨM):
+      </h4>
+      <div style="display: grid; gap: 10px;">
+        ${m.researchBullets.map(b => {
+          const parts = b.split(':');
+          if (parts.length > 1) {
+            return `
+              <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(229,138,31,0.2); padding: 12px 16px; border-radius: 8px; font-size: 0.88rem; line-height: 1.6; color: #EDE4DB;">
+                <strong style="color: var(--color-forest-gold);">✦ ${parts[0]}:</strong>${parts.slice(1).join(':')}
+              </div>
+            `;
+          }
+          return `
+            <div style="background: rgba(255,255,255,0.04); border: 1px solid rgba(229,138,31,0.2); padding: 12px 16px; border-radius: 8px; font-size: 0.88rem; line-height: 1.6; color: #EDE4DB;">
+              ✦ ${b}
+            </div>
+          `;
+        }).join('')}
+      </div>
+    </div>
+  ` : '';
+
+  const appliedProdsHTML = appliedProds.length ? `
+    <div style="margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,0.1);">
+      <div style="font-size: 0.85rem; font-weight: 800; color: var(--color-forest-gold); text-transform: uppercase; margin-bottom: 10px;">
+        TÁC PHẨM ỨNG DỤNG HOA VĂN NÀY (${appliedProds.length}):
+      </div>
+      <div style="display: flex; flex-wrap: wrap; gap: 10px;">
+        ${appliedProds.map(p => `
+          <a href="product-detail.html?id=${p.id}" class="motif-applied-pill">
+            <span style="font-weight: 800; color: var(--color-amber-glow);">${p.id}</span>
+            <span>${p.nameVi}</span>
+          </a>
+        `).join('')}
+      </div>
+    </div>
+  ` : '';
+
   content.innerHTML = `
-    <div style="padding: 35px 30px;">
-      <div style="display: flex; gap: 24px; align-items: center; margin-bottom: 20px; flex-wrap: wrap;">
+    <div class="motif-modal-research-wrap">
+      <div style="display: flex; gap: 24px; align-items: center; margin-bottom: 22px; flex-wrap: wrap;">
         <div style="width: 110px; height: 110px; border-radius: 16px; background: radial-gradient(circle at center, #2c2520 0%, #151210 100%); display: flex; align-items: center; justify-content: center; padding: 12px; border: 2px solid var(--color-forest-gold); flex-shrink: 0;">
           <img src="${m.image}" alt="${m.nameVi}" style="max-width: 100%; max-height: 100%; object-fit: contain;">
         </div>
-        <div>
+        <div style="flex: 1;">
           <span style="font-size: 0.75rem; font-weight: 800; color: var(--color-forest-gold); text-transform: uppercase;">
             ${m.themeNameVi} • MÃ: ${m.motif_code || m.id}
           </span>
-          <h2 style="font-size: 1.4rem; font-weight: 900; color: #FFFFFF; margin: 4px 0 6px;">
+          <h2 style="font-size: 1.45rem; font-weight: 900; color: #FFFFFF; margin: 4px 0 6px;">
             ${m.nameJrai} — ${m.nameVi}
           </h2>
           <div style="font-size: 0.85rem; color: var(--color-text-muted);">
-            📍 ${m.village}
+            📍 ${m.village} • Xác minh: <strong>${m.artisanVerification}</strong>
           </div>
         </div>
       </div>
 
+      ${m.researchOverview ? `
+        <div style="background: rgba(2, 132, 199, 0.12); border-left: 3px solid #0284C7; padding: 14px 18px; border-radius: 0 8px 8px 0; margin-bottom: 20px; font-size: 0.92rem; color: #D1E9FA; line-height: 1.7;">
+          <strong style="color: #60A5FA;">Tổng quan nghiên cứu:</strong> ${m.researchOverview}
+        </div>
+      ` : ''}
+
+      ${bulletsHTML}
+
       <div style="margin-bottom: 20px;">
         <h4 style="font-size: 0.85rem; font-weight: 800; color: var(--color-bazan-red); text-transform: uppercase; margin-bottom: 6px;">
-          TRIẾT LÝ NHÂN SINH BẢN ĐỊA
+          TRIẾT LÝ NHÂN SINH BẢN ĐỊA & VẠN VẬT HỮU LINH (YANG KƠTƠP)
         </h4>
-        <p style="font-size: 0.95rem; color: #EDE4DB; line-height: 1.7;">
+        <p style="font-size: 0.92rem; color: #EDE4DB; line-height: 1.7;">
           ${m.philosophyVi}
         </p>
       </div>
 
-      <div style="background: var(--color-cotton-surface); padding: 16px 20px; border-radius: var(--radius-md); margin-bottom: 22px; border: 1px solid var(--color-cotton-border);">
-        <div style="font-size: 0.88rem; color: #FFFFFF; margin-bottom: 6px;"><strong>Kỹ thuật dệt:</strong> ${m.technique}</div>
+      <div style="background: var(--color-cotton-surface); padding: 16px 20px; border-radius: var(--radius-md); margin-bottom: 20px; border: 1px solid var(--color-cotton-border); display: grid; gap: 8px;">
+        <div style="font-size: 0.88rem; color: #FFFFFF;"><strong>Kỹ thuật dệt:</strong> ${m.technique}</div>
+        <div style="font-size: 0.88rem; color: #EDE4DB;"><strong>Màu sắc truyền thống:</strong> ${m.colors ? m.colors.join(', ') : 'Đỏ, Đen, Trắng, Vàng'}</div>
         <div style="font-size: 0.88rem; color: #6EE7B7;"><strong>Chứng nhận nghệ nhân:</strong> ${m.artisanVerification}</div>
       </div>
 
-      <div style="display: flex; gap: 12px;">
+      ${appliedProdsHTML}
+
+      <div style="display: flex; gap: 12px; margin-top: 25px;">
         <a href="products.html" class="btn btn-primary btn-sm">
-          Xem các sản phẩm ứng dụng hoa văn này
+          Khám phá tất cả sản phẩm
         </a>
+        <button class="btn btn-outline-dark btn-sm" onclick="closeModal()">
+          Đóng cửa sổ
+        </button>
       </div>
     </div>
   `;
